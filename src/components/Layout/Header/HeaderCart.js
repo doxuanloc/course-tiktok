@@ -12,7 +12,8 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
   const ORDER_URL = "/orders";
   const GET_PROFILE_URL = "auth/profile";
 
-  var storedCart = JSON.parse(localStorage.getItem("cart"));
+  const storedCart =
+    typeof window !== "undefined" ? localStorage.getItem("cart") : null;
 
   useEffect(() => {
     const token = localStorage.getItem("token");

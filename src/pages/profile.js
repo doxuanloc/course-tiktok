@@ -4,7 +4,7 @@ import Footer from "../components/Layout/Footer/Footer";
 import HeaderUser from "../components/Layout/Header/HeaderUser/HeaderUser";
 import { toast } from "react-toastify";
 
-function Profile() {
+export default function Profile() {
   const GET_PROFILE_URL = "auth/profile";
   const [profileUser, setProFileUser] = useState();
   const [phoneNumber, setPhoneNumBer] = useState();
@@ -150,7 +150,7 @@ function Profile() {
                           id="inputPhone"
                           type="tel"
                           placeholder="Số Điện Thoại Của Bạn"
-                          value={profileUser?.phoneNumber}
+                          value={profileUser?.phoneNumber || ""}
                           onChange={(e) => setPhoneNumBer(e.target.value)}
                         />
                       </div>
@@ -190,5 +190,3 @@ function Profile() {
     </>
   );
 }
-
-export default Profile;
