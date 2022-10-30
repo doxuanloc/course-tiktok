@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ReactPlayer from "react-player";
 import Modal from "react-responsive-modal";
+import { useRouter } from "next/router";
+import { CartContext } from "../../contexts/Cart";
 
 const CourseDetailsSidebar = ({ dataCourses }) => {
   const [open, setOpen] = useState(false);
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
+  const [course, setCourse] = useState();
+
+  useEffect(() => {
+    setCourse(dataCourses);
+  }, [dataCourses]);
+
+  const router = useRouter();
 
   return (
     <React.Fragment>
@@ -28,17 +37,12 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
         }}
         center
       >
-        <ReactPlayer
-          url={dataCourses.lessons[0].url}
-          width="100%"
-          height="calc(100vh - 200px)"
-        />
+        <ReactPlayer url="" width="100%" height="calc(100vh - 200px)" />
       </Modal>
-
       <div className="course-video-widget">
         <div className="course-widget-wrapper mb-30">
           <div className="course-video-thumb w-img">
-            <img src={dataCourses.thumbnail} alt="image not found" />
+            <img src={course?.thumbnail} alt="image not found" />
             <div className="sidber-video-btn">
               <span className="popup-video" onClick={onOpenModal}>
                 <i className="fas fa-play"></i>
@@ -46,7 +50,7 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
             </div>
           </div>
           <div className="course-video-price">
-            <span>{dataCourses.price} đ</span>
+            <span>{course?.price} đ</span>
           </div>
           <div className="course-video-body">
             <ul>
@@ -56,7 +60,7 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
                   <span>Trình Độ</span>
                 </div>
                 <div className="video-corse-info">
-                  <span>{dataCourses.level}</span>
+                  <span>{course?.level}</span>
                 </div>
               </li>
               <li>
@@ -65,7 +69,7 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
                   <span>Bài Học</span>
                 </div>
                 <div className="video-corse-info">
-                  <span>{dataCourses.numberOfLessons} Bài Học</span>
+                  <span>{course?.numberOfLessons} Bài Học</span>
                 </div>
               </li>
               <li>
@@ -83,7 +87,7 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
                   <span>Danh Mục</span>
                 </div>
                 <div className="video-corse-info">
-                  <span>{dataCourses?.tags?.[1]}</span>
+                  <span>{course?.tags?.[1]}</span>
                 </div>
               </li>
               <li>
@@ -98,11 +102,16 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
             </ul>
           </div>
           <div className="video-wishlist">
-            <Link href="/cart">
-              <a className="video-cart-btn">
-                <i className="fal fa-shopping-cart"></i>Thêm Vào Giỏ Hàng
-              </a>
-            </Link>
+            <CartContext.Consumer>
+              {({ addToCart }) => (
+                <button
+                  className="video-cart-btn po"
+                  onClick={() => addToCart(course)}
+                >
+                  <i className="fal fa-shopping-cart"></i>Thêm Vào Giỏ Hàng
+                </button>
+              )}
+            </CartContext.Consumer>
           </div>
         </div>
       </div>

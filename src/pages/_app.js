@@ -7,7 +7,7 @@ import "./index.scss";
 import { store } from "../redux/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "../context/AuthProvider";
+import { CartProvider } from "../contexts/Cart";
 
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
@@ -25,12 +25,10 @@ function MyApp({ Component, ...pageProps }) {
         <link rel="stylesheet" href="assets/css/fontAwesome5Pro.css" />
         <link rel="stylesheet" href="assets/css/flaticon.css" />
       </Head>
-      <AuthProvider>
-        <Provider store={store}>
-          <Component {...pageProps} />
-          <ToastContainer />
-        </Provider>
-      </AuthProvider>
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
+      <ToastContainer />
     </>
   );
 }

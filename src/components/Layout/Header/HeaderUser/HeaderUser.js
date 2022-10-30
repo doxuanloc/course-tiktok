@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useSticky from "../../../../hooks/useSticky";
 import MobileMenu from "../../Header/MobileMenu";
-import HeaderCart from "../../Header/HeaderCart";
 import SignIn from "../../Header/SignIn";
 import SignUp from "../../Header/SignUp";
 import axios from "../../../../api/axios";
+import HeaderCart from "../../Header/HeaderCart";
+import { CartContext } from "../../../../contexts/Cart";
+
 const HeaderUser = ({ setShowHeaderUser }) => {
   // sticky nav
   const { sticky } = useSticky();
@@ -20,11 +22,11 @@ const HeaderUser = ({ setShowHeaderUser }) => {
 
   const GET_USER_URL = "auth/profile/";
 
-  async function getProfileUser() {
+  useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      await axios
+      axios
         .get(GET_USER_URL, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,10 +40,6 @@ const HeaderUser = ({ setShowHeaderUser }) => {
           console.log(err);
         });
     }
-  }
-
-  useEffect(() => {
-    getProfileUser();
   }, []);
 
   const router = useRouter();
@@ -205,25 +203,10 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                   <div className="main-menu d-none d-xl-block">
                     <nav id="mobile-menu">
                       <ul>
-                        <li className="menu-item-has-children">
-                          <a>Cửa Hàng</a>
-                          <ul className="sub-menu">
-                            <li>
-                              <Link href="/wishlist">
-                                <a>Danh Sách Đơn Hàng</a>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="/cart">
-                                <a>Giỏ Hàng</a>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="/checkout">
-                                <a>Thanh Toán</a>
-                              </Link>
-                            </li>
-                          </ul>
+                        <li>
+                          <Link href="/checkout">
+                            <a>Thanh Toán</a>
+                          </Link>
                         </li>
                         <li>
                           <Link href="/about">
@@ -291,7 +274,13 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                             />
                           </g>
                         </svg>
-                        <span className="item-number">1</span>
+                        <span className="item-number">
+                          <CartContext.Consumer>
+                            {({ cartItems }) => (
+                              <Link href="/course">{cartItems.length}</Link>
+                            )}
+                          </CartContext.Consumer>
+                        </span>
                       </div>
                     </a>
                   </div>
@@ -311,13 +300,8 @@ const HeaderUser = ({ setShowHeaderUser }) => {
 
                           <ul className="sub-menu">
                             <li>
-                              <Link href="/course">
+                              <Link href="/my-course">
                                 <a>Khoá Học Của Tôi</a>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="/wishlist">
-                                <a>Quản Lý Đơn Hàng</a>
                               </Link>
                             </li>
                             <li>
@@ -378,7 +362,7 @@ const HeaderUser = ({ setShowHeaderUser }) => {
       <SignIn
         signInOpen={signInOpen}
         setSignInOpen={setSignInOpen}
-        setShowHeaderUser={setShowHeaderUser}
+        // setShowHeaderUser={setShowHeaderUser}
       />
       <div
         onClick={() => setSignInOpen(false)}

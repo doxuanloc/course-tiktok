@@ -134,11 +134,6 @@ const MobileMenu = ({ setMenuOpen, menuOpen }) => {
                     </Link>
                   </li>
                   <li>
-                    <Link href="/wishlist">
-                      <a>Danh Sách Đơn Hàng</a>
-                    </Link>
-                  </li>
-                  <li>
                     <Link href="/cart">
                       <a>Giỏ Hàng</a>
                     </Link>

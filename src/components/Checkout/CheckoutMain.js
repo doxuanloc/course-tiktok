@@ -1,36 +1,43 @@
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import axios from "../../api/axios";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const CheckoutMain = () => {
   const [BankTransfer, setBankTransfer] = useState(true);
+  const GET_CHECKOUT_URL = "orders";
+  const [courseCheckout, setCourseCheckout] = useState([]);
+  const [statusCheckOut, setStatusCheckout] = useState();
+  const router = useRouter();
 
-  const [userNameProfile, setUserNameProfile] = useState("");
+  function handleCheckOut() {
+    console.log("status", statusCheckOut);
+    router.push("/course");
+    localStorage.removeItem("cart", "total", "id-order");
+    toast.success("Chờ Xử Lý");
+  }
+  const total =
+    typeof window !== "undefined" ? localStorage.getItem("total") : null;
 
-  const GET_USER_URL = "auth/profile/";
-
-  async function getProfileUser() {
+  useEffect(() => {
     const token = localStorage.getItem("token");
-
-    if (token) {
-      await axios
-        .get(GET_USER_URL, {
+    const idOrder = localStorage.getItem("id-order");
+    if (token && idOrder) {
+      axios
+        .get(`${GET_CHECKOUT_URL}/${idOrder}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          // console.log(res.data.data);
-          setUserNameProfile(res.data.data.fullName);
+          setCourseCheckout(res.data.data.items);
+          setStatusCheckout(res.data.data.status);
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }
-
-  useEffect(() => {
-    getProfileUser();
   }, []);
 
   return (
@@ -41,7 +48,7 @@ const CheckoutMain = () => {
       />
 
       <section className="coupon-area pt-100 pb-30">
-        <h1 className="pl-200 text-info">Chào {userNameProfile} !</h1>
+        <h1 className="pl-200 text-info">Chào bạn !</h1>
       </section>
 
       <section className="checkout-area pb-70">
@@ -59,17 +66,25 @@ const CheckoutMain = () => {
                           <th className="product-total">Giá</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr className="cart_item">
-                          <td className="product-name">
-                            Edit Video{" "}
-                            <strong className="product-quantity"> × 1</strong>
-                          </td>
-                          <td className="product-total">
-                            <span className="amount">100000 đ</span>
-                          </td>
-                        </tr>
-                      </tbody>
+                      {courseCheckout ? (
+                        courseCheckout.map((item, index) => (
+                          <tbody key={index}>
+                            <tr className="cart_item">
+                              <td className="product-name">
+                                {item.course.title}
+                              </td>
+                              <td className="product-total">
+                                <span className="amount">
+                                  {item.course.price} đ
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        ))
+                      ) : (
+                        <div>Chưa có đơn Hàng</div>
+                      )}
+
                       <tfoot>
                         <tr className="shipping">
                           <th>Phương Thức Thanh Toán</th>
@@ -99,7 +114,7 @@ const CheckoutMain = () => {
                           <th>Tổng Cộng</th>
                           <td>
                             <strong>
-                              <span className="amount">100000 đ</span>
+                              <span className="amount">{total} đ</span>
                             </strong>
                           </td>
                         </tr>
@@ -214,7 +229,11 @@ const CheckoutMain = () => {
                     </div>
                   )}
                   <div className="order-button-payment mt-20">
-                    <button type="submit" className="edu-btn">
+                    <button
+                      type="submit"
+                      className="edu-btn"
+                      onClick={() => handleCheckOut()}
+                    >
                       Đã Chuyển Khoản Thanh Toán
                     </button>
                   </div>

@@ -4,7 +4,7 @@ const Pagination = ({ numPage }) => {
   const pages = [];
   for (let i = 0; i < numPage; i++) {
     pages.push(
-      <div className="edu-pagination mt-30 mb-20">
+      <div className="edu-pagination mt-30 mb-20" key={i}>
         <ul>
           <li>
             <a href="#">

@@ -36,11 +36,10 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
         setShowHeaderUser(true);
       })
       .catch((err) => {
-        // const data = err.response.data;
-        // toast.error(data.message);
+        const data = err?.response?.data;
+        toast.error(data?.message);
         setUsername("");
         setPassword("");
-        console.log(err);
       });
   };
 
@@ -73,7 +72,7 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
           </div>
           <div className="signup-wrapper">
             <input
-              type="text"
+              type="password"
               placeholder="Mật Khẩu"
               onChange={(e) => setPassword(e.target.value)}
               value={password}

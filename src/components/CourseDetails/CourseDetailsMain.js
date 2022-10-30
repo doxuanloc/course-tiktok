@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import CourseDetailsSidebar from "./CourseDetailsSidebar";
 
 import { toast } from "react-toastify";
 import axios from "../../api/axios";
-import { useRouter } from "next/router";
 
 const CourseDetailsMain = () => {
   const [isActive, setActive] = useState("false");
-  const [dataCourses, setDataCourses] = useState([]);
+  const [dataCourses, setDataCourses] = useState();
 
   const DATA_COURSES_URL = "courses";
 
@@ -22,11 +22,12 @@ const CourseDetailsMain = () => {
 
   async function getDataCourse() {
     const token = localStorage.getItem("token");
-    const idCourse = localStorage.getItem("id");
+    const id = localStorage.getItem("id");
+
     if (token) {
       await axios
         .get(
-          `${DATA_COURSES_URL}/${idCourse}`,
+          `${DATA_COURSES_URL}/${id}`,
           JSON.stringify({
             headers: {
               Authorization: `${token}`,
@@ -35,7 +36,6 @@ const CourseDetailsMain = () => {
         )
         .then((res) => {
           setDataCourses(res.data.data);
-          console.log(res.data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -45,6 +45,9 @@ const CourseDetailsMain = () => {
       router.push("/");
     }
   }
+  useEffect(() => {
+    getDataCourse();
+  }, []);
 
   function NumToTime(num) {
     var hours = Math.floor(num / 60);
@@ -55,9 +58,6 @@ const CourseDetailsMain = () => {
     return hours + ":" + minutes;
   }
 
-  useEffect(() => {
-    getDataCourse();
-  }, []);
   return (
     <main>
       <Breadcrumb
@@ -172,11 +172,11 @@ const CourseDetailsMain = () => {
                           >
                             <span className="accordion-header">
                               <span className="accordion-tittle">
-                                <span>{dataCourses.title}</span>
+                                <span>{dataCourses?.title}</span>
                               </span>
                               <span className="accordion-tittle-inner">
                                 <span>
-                                  {dataCourses.numberOfLessons} Bài Học •
+                                  {dataCourses?.numberOfLessons} Bài Học •
                                 </span>
                               </span>
                             </span>
@@ -190,11 +190,14 @@ const CourseDetailsMain = () => {
                         >
                           <div className="accordion-body">
                             {dataCourses?.lessons?.map((item, index) => (
-                              <div className="course-curriculum-content d-sm-flex justify-content-between align-items-center">
+                              <div
+                                className="course-curriculum-content d-sm-flex justify-content-between align-items-center"
+                                key={index}
+                              >
                                 <div className="course-curriculum-info">
                                   <i className="flaticon-youtube"></i>
-                                  <a href={item.url}>
-                                    <h4>{item.title}</h4>
+                                  <a href={item?.url}>
+                                    <h4>{item?.title}</h4>
                                   </a>
                                 </div>
                                 <div className="course-curriculum-meta">
@@ -264,184 +267,6 @@ const CourseDetailsMain = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="course-detalis-reviews pt-15">
-                  <div className="course-detalis-reviews-tittle">
-                    <h3>Reviews</h3>
-                  </div>
-                  <div className="course-review-item mb-30">
-                    <div className="course-reviews-img">
-                      <a href="#">
-                        <img
-                          src="assets/img/course/course-reviews-1.png"
-                          alt="image not found"
-                        />
-                      </a>
-                    </div>
-                    <div className="course-review-list">
-                      <h5>
-                        <a href="#">Sotapdi Kunda</a>
-                      </h5>
-                      <div className="course-start-icon">
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <span>55 min ago</span>
-                      </div>
-                      <p>
-                        Very clean and organized with easy to follow tutorials,
-                        Exercises, and solutions. This course does start from
-                        the beginning with very little knowledge and gives a
-                        great overview of common tools used for data science and
-                        progresses into more complex concepts and ideas.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="course-review-item mb-30">
-                    <div className="course-reviews-img">
-                      <a href="#">
-                        <img
-                          src="assets/img/course/course-reviews-2.png"
-                          alt="image not found"
-                        />
-                      </a>
-                    </div>
-                    <div className="course-review-list">
-                      <h5>
-                        <a href="#">Samantha</a>
-                      </h5>
-                      <div className="course-start-icon">
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <span>45 min ago</span>
-                      </div>
-                      <p>
-                        The course is good at explaining very basic intuition of
-                        the concepts. It will get you scratching the surface so
-                        to say. where this course is unique is the
-                        implementation methods are so well defined Thank you to
-                        the team !.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="course-review-item mb-30">
-                    <div className="course-reviews-img">
-                      <a href="#">
-                        <img
-                          src="assets/img/course/course-reviews-3.png"
-                          alt="image not found"
-                        />
-                      </a>
-                    </div>
-                    <div className="course-review-list">
-                      <h5>
-                        <a href="#">Michell Mariya</a>
-                      </h5>
-                      <div className="course-start-icon">
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <span>30 min ago</span>
-                      </div>
-                      <p>
-                        This course is amazing..! I started this course as a
-                        beginner and learnt a lot. Instructors are great. Query
-                        handling can be improved.Overall very happy with the
-                        course.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-12">
-                  <div className="course-review-btn">
-                    <span
-                      id="show-review-box"
-                      className="edu-btn"
-                      onClick={handleToggle}
-                    >
-                      Write a Review
-                    </span>
-                    <div
-                      id="review-box"
-                      className={`review-comment mt-45 ${
-                        isActive ? "danger" : "d-block"
-                      }`}
-                    >
-                      <div className="comment-title mb-20">
-                        <p>
-                          Your email address will not be published. Required
-                          fields are marked *
-                        </p>
-                      </div>
-                      <div className="comment-rating mb-20">
-                        <span>Overall ratings</span>
-                        <ul>
-                          <li>
-                            <a href="#">
-                              <i className="fas fa-star"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fas fa-star"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fas fa-star"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fas fa-star"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              <i className="fal fa-star"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="comment-input-box mb-15">
-                        <form action="#">
-                          <div className="row">
-                            <div className="col-xxl-12">
-                              <textarea
-                                placeholder="Your review"
-                                className="comment-input comment-textarea mb-20"
-                              ></textarea>
-                            </div>
-                            <div className="col-xxl-6">
-                              <div className="comment-input mb-20">
-                                <input type="text" placeholder="Your Name" />
-                              </div>
-                            </div>
-                            <div className="col-xxl-6">
-                              <div className="comment-input mb-20">
-                                <input type="email" placeholder="Your Email" />
-                              </div>
-                            </div>
-                            <div className="col-xxl-12">
-                              <div className="comment-submit">
-                                <button type="submit" className="edu-btn">
-                                  Submit
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
                       </div>
                     </div>
                   </div>

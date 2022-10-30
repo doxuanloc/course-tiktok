@@ -3,7 +3,7 @@ import Breadcrumb from "../Common/Breadcrumb";
 import Link from "next/link";
 
 const CartMain = () => {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
   };

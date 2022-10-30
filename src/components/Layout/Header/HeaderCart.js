@@ -1,86 +1,153 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { CartContext } from "../../../contexts/Cart";
+import axios from "../../../api/axios";
 
 const HeaderCart = ({ setCartOpen, cartOpen }) => {
   const router = useRouter();
   const [path, setPath] = useState("");
-  const [cartCount, setCartCount] = useState([]);
+  const [phoneUser, setPhoneUser] = useState();
+  const [fullNameUser, setFullnameUser] = useState();
+  const ORDER_URL = "/orders";
+  const GET_PROFILE_URL = "auth/profile";
+
+  var storedCart = JSON.parse(localStorage.getItem("cart"));
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get(GET_PROFILE_URL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setFullnameUser(res.data.data.fullName);
+          setPhoneUser(res.data.data.phoneNumber);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
+  async function handleCheckOut() {
+    const token = localStorage.getItem("token");
+    console.log(phoneUser, fullNameUser, storedCart[0]._id);
+    await axios
+      .post(
+        ORDER_URL,
+        {
+          customerInfo: {
+            phoneNumber: phoneUser,
+            fullName: fullNameUser,
+          },
+          items: [
+            {
+              course: storedCart[0]._id,
+            },
+          ],
+          paymentType: "BANKING",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        localStorage.setItem("id-order", res.data.data._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    router.push("/checkout");
+    setCartOpen(false);
+  }
+
   useEffect(() => {
     setPath(router.pathname);
   }, [router]);
 
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-
-  const handleDecrement = () => {
-    setCount((prevCount) => prevCount - 1);
-  };
-
   return (
-    <div className="cartmini__area">
-      <div
-        className={cartOpen ? "cartmini__wrapper opened" : "cartmini__wrapper"}
-      >
-        <div className="cartmini__title">
-          <h4>Giỏ Hàng</h4>
-        </div>
-        <div className="cartmini__close">
-          <button
-            type="button"
-            className="cartmini__close-btn"
-            onClick={() => setCartOpen(false)}
-          >
-            <i className="fal fa-times"></i>
-          </button>
-        </div>
-        <div className="cartmini__widget">
-          <div className="cartmini__inner">
-            <ul>
-              <li>
-                <div className="cartmini__thumb">
-                  <Link href="/">
-                    <a>
-                      <img
-                        src="assets/img/products/product-thumb-01.png"
-                        alt="image not found"
-                      />
-                    </a>
-                  </Link>
-                </div>
-                <div className="cartmini__content">
-                  <h5>
-                    <a href="#">Edit Video</a>
-                  </h5>
-                  <div className="product-quantity mt-10 mb-10">
-                    <span className="cart-minus" onClick={handleDecrement}>
-                      <i className="far fa-minus"></i>
-                    </span>
-                    <p className="cart-input">{cartCount.length}</p>
-                    <span className="cart-plus" onClick={handleIncrement}>
-                      <i className="far fa-plus"></i>
-                    </span>
-                  </div>
-                  <div className="product__sm-price-wrapper">
-                    <span className="product__sm-price">400.000 đ</span>
-                  </div>
-                </div>
-                <a href="#" className="cartmini__del">
-                  <i className="fal fa-times"></i>
-                </a>
-              </li>
-            </ul>
+    <>
+      <div className="cartmini__area">
+        <div
+          className={
+            cartOpen ? "cartmini__wrapper opened" : "cartmini__wrapper"
+          }
+        >
+          <div className="cartmini__title">
+            <h4>Giỏ Hàng</h4>
           </div>
-          <div className="cartmini__checkout">
-            <div className="cartmini__checkout-title mb-30">
-              <h4>Tổng:</h4>
-              <span>400.000 đ</span>
-            </div>
+          <div className="cartmini__close">
+            <button
+              type="button"
+              className="cartmini__close-btn"
+              onClick={() => setCartOpen(false)}
+            >
+              <i className="fal fa-times"></i>
+            </button>
           </div>
+          <CartContext.Consumer>
+            {({ removeFromCart, total }) => (
+              <>
+                {storedCart?.map((item) => (
+                  <div className="cartmini__widget" key={item._id}>
+                    <div className="cartmini__inner">
+                      <ul>
+                        <li>
+                          <div className="cartmini__thumb">
+                            <Link href="/">
+                              <a>
+                                <img src={item.thumbnail} alt="image" />
+                              </a>
+                            </Link>
+                          </div>
+                          <div className="cartmini__content">
+                            <h5>
+                              <a href="#">{item.title}</a>
+                            </h5>
+                            <div className="product__sm-price-wrapper">
+                              <span className="product__sm-price">
+                                {item.price} đ
+                              </span>
+                            </div>
+                          </div>
+                          <a href="#" className="cartmini__del">
+                            <button
+                              className="fal fa-times"
+                              onClick={() => removeFromCart(item._id)}
+                            ></button>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="cartmini__checkout">
+                      <div className="cartmini__checkout-title mb-30">
+                        <h4>Tổng:</h4>
+                        <span>{total} đ</span>
+                      </div>
+                    </div>
+                    <button
+                      className="video-cart-btn ml-60"
+                      onClick={() => handleCheckOut(storedCart)}
+                    >
+                      <Link href="/checkout">
+                        <a className="fa fa-credit-card"></a>
+                      </Link>{" "}
+                      Thanh Toán Ngay
+                    </button>
+                  </div>
+                ))}
+              </>
+            )}
+          </CartContext.Consumer>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
