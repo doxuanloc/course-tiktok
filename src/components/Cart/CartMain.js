@@ -39,17 +39,17 @@ const CartMain = () => {
                     <tr>
                       <td className="product-thumbnail">
                         <Link href="/course-details">
-                          <a>
+                          <button>
                             <img
                               src="assets/img/products/product-thumb-01.png"
                               alt="img not found"
                             />
-                          </a>
+                          </button>
                         </Link>
                       </td>
                       <td className="product-name">
                         <Link href="/course-details">
-                          <a>Edit Video</a>
+                          <button>Edit Video</button>
                         </Link>
                       </td>
                       <td className="product-price">
@@ -131,7 +131,7 @@ const CartMain = () => {
                       </li>
                     </ul>
                     <Link href="/checkout">
-                      <a className="edu-border-btn">Thanh Toán</a>
+                      <button className="edu-border-btn">Thanh Toán</button>
                     </Link>
                   </div>
                 </div>

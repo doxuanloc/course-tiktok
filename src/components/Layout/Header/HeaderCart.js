@@ -6,17 +6,21 @@ import axios from "../../../api/axios";
 
 const HeaderCart = ({ setCartOpen, cartOpen }) => {
   const router = useRouter();
-  const [path, setPath] = useState("");
   const [phoneUser, setPhoneUser] = useState();
   const [fullNameUser, setFullnameUser] = useState();
+  const [storedCart, setStoredCart] = useState([]);
+  const [allIdCart, setAllIdCart] = useState([]);
+
   const ORDER_URL = "/orders";
   const GET_PROFILE_URL = "auth/profile";
 
-  const storedCart =
-    typeof window !== "undefined" ? localStorage.getItem("cart") : null;
+  // const storedCart =
+  //   typeof window !== "undefined" ? localStorage.getItem("cart") : null;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    setStoredCart(JSON.parse(localStorage.getItem("cart")));
+
     if (token) {
       axios
         .get(GET_PROFILE_URL, {
@@ -36,7 +40,12 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
 
   async function handleCheckOut() {
     const token = localStorage.getItem("token");
-    console.log(phoneUser, fullNameUser, storedCart[0]._id);
+    var _allIdCart = [];
+    for (var i = 0; i < storedCart?.length; i++) {
+      _allIdCart.push(storedCart[i]._id);
+      setAllIdCart([..._allIdCart]);
+    }
+
     await axios
       .post(
         ORDER_URL,
@@ -47,7 +56,7 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
           },
           items: [
             {
-              course: storedCart[0]._id,
+              course: allIdCart,
             },
           ],
           paymentType: "BANKING",
@@ -67,10 +76,6 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
     router.push("/checkout");
     setCartOpen(false);
   }
-
-  useEffect(() => {
-    setPath(router.pathname);
-  }, [router]);
 
   return (
     <>
@@ -93,19 +98,15 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
             </button>
           </div>
           <CartContext.Consumer>
-            {({ removeFromCart, total }) => (
+            {({ removeFromCart, total, cartItems }) => (
               <>
-                {storedCart?.map((item) => (
-                  <div className="cartmini__widget" key={item._id}>
-                    <div className="cartmini__inner">
+                <div className="cartmini__widget">
+                  {cartItems?.map((item) => (
+                    <div className="cartmini__inner" key={item._id}>
                       <ul>
                         <li>
                           <div className="cartmini__thumb">
-                            <Link href="/">
-                              <a>
-                                <img src={item.thumbnail} alt="image" />
-                              </a>
-                            </Link>
+                            <img src={item.thumbnail} alt="image" />
                           </div>
                           <div className="cartmini__content">
                             <h5>
@@ -117,32 +118,34 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
                               </span>
                             </div>
                           </div>
-                          <a href="#" className="cartmini__del">
-                            <button
-                              className="fal fa-times"
-                              onClick={() => removeFromCart(item._id)}
-                            ></button>
-                          </a>
+                          <button
+                            className="fal fa-times"
+                            onClick={() => removeFromCart(item._id)}
+                          ></button>
                         </li>
                       </ul>
                     </div>
-                    <div className="cartmini__checkout">
-                      <div className="cartmini__checkout-title mb-30">
-                        <h4>Tổng:</h4>
-                        <span>{total} đ</span>
-                      </div>
+                  ))}
+                  <div className="cartmini__checkout">
+                    <div className="cartmini__checkout-title mb-30">
+                      <h4>Tổng:</h4>
+                      <span>{total} đ</span>
                     </div>
+                  </div>
+                  {cartItems.length !== 0 ? (
                     <button
                       className="video-cart-btn ml-60"
                       onClick={() => handleCheckOut(storedCart)}
                     >
                       <Link href="/checkout">
-                        <a className="fa fa-credit-card"></a>
+                        <i className="fa fa-credit-card"></i>
                       </Link>{" "}
                       Thanh Toán Ngay
                     </button>
-                  </div>
-                ))}
+                  ) : (
+                    ""
+                  )}
+                </div>
               </>
             )}
           </CartContext.Consumer>

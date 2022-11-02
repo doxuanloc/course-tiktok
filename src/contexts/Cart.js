@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const CartContext = React.createContext();
 
@@ -12,7 +13,6 @@ export function CartProvider(props) {
         return cartItem;
       }
     }
-    return false;
   };
 
   useEffect(() => {
@@ -52,8 +52,7 @@ export function CartProvider(props) {
         } else {
           for (let i = 0; i < virtualCart.length; i++) {
             if (virtualCart[i]._id === course._id) {
-              virtualCart[i].count += 1;
-              break;
+              toast.warning("Khóa Học Đã Thêm Vào Giỏ");
             }
           }
         }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import SignIn from "./SignIn";
 
 const MobileMenu = ({ setMenuOpen, menuOpen }) => {
-  const [signinOpen, setSingInOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
 
   const [home, setHome] = useState(false);
   const [courses, setcourses] = useState(false);
@@ -194,7 +194,7 @@ const MobileMenu = ({ setMenuOpen, menuOpen }) => {
             <span
               className="edu-four-btn"
               onClick={() => {
-                setSingInOpen(!signinOpen);
+                setSignInOpen(!signInOpen);
               }}
             >
               Đăng Kí Ngay
@@ -203,11 +203,11 @@ const MobileMenu = ({ setMenuOpen, menuOpen }) => {
         </div>
       </div>
 
-      <SignIn signinOpen={signinOpen} setSingInOpen={setSingInOpen} />
+      <SignIn signInOpen={signInOpen} setSignInOpen={setSignInOpen} />
       <div
-        onClick={() => setSingInOpen(false)}
+        onClick={() => setSignInOpen(false)}
         className={
-          signinOpen ? "offcanvas-overlay overlay-open" : "offcanvas-overlay"
+          signInOpen ? "offcanvas-overlay overlay-open" : "offcanvas-overlay"
         }
       ></div>
     </div>

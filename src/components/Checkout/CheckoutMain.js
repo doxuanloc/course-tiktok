@@ -6,23 +6,25 @@ import { toast } from "react-toastify";
 
 const CheckoutMain = () => {
   const [BankTransfer, setBankTransfer] = useState(true);
-  const GET_CHECKOUT_URL = "orders";
   const [courseCheckout, setCourseCheckout] = useState([]);
   const [statusCheckOut, setStatusCheckout] = useState();
+  const [total, setTotal] = useState(0);
   const router = useRouter();
 
+  const GET_CHECKOUT_URL = "orders";
   function handleCheckOut() {
-    console.log("status", statusCheckOut);
     router.push("/course");
     localStorage.removeItem("cart", "total", "id-order");
     toast.success("Chờ Xử Lý");
   }
-  const total =
-    typeof window !== "undefined" ? localStorage.getItem("total") : null;
+  // const total =
+  //   typeof window !== "undefined" ? localStorage.getItem("total") : null;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idOrder = localStorage.getItem("id-order");
+    setTotal(localStorage.getItem("total"));
+    console.log("courseCheckout", courseCheckout);
     if (token && idOrder) {
       axios
         .get(`${GET_CHECKOUT_URL}/${idOrder}`, {
@@ -66,24 +68,20 @@ const CheckoutMain = () => {
                           <th className="product-total">Giá</th>
                         </tr>
                       </thead>
-                      {courseCheckout ? (
-                        courseCheckout.map((item, index) => (
-                          <tbody key={index}>
-                            <tr className="cart_item">
-                              <td className="product-name">
-                                {item.course.title}
-                              </td>
-                              <td className="product-total">
-                                <span className="amount">
-                                  {item.course.price} đ
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        ))
-                      ) : (
-                        <div>Chưa có đơn Hàng</div>
-                      )}
+                      {courseCheckout.map((item, index) => (
+                        <tbody key={index}>
+                          <tr className="cart_item">
+                            <td className="product-name">
+                              {item.course.title}
+                            </td>
+                            <td className="product-total">
+                              <span className="amount">
+                                {item.course.price} đ
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
 
                       <tfoot>
                         <tr className="shipping">
@@ -95,6 +93,7 @@ const CheckoutMain = () => {
                                   type="radio"
                                   name="Shipping"
                                   onClick={() => setBankTransfer(true)}
+                                  defaultChecked
                                 />
                                 <label>Chuyển Khoản Ngân Hàng</label>
                               </li>

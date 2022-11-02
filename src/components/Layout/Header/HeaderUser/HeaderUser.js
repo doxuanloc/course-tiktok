@@ -24,6 +24,7 @@ const HeaderUser = ({ setShowHeaderUser }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    localStorage.setItem("fullName", usernameProfile);
 
     if (token) {
       axios
@@ -204,11 +205,6 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                     <nav id="mobile-menu">
                       <ul>
                         <li>
-                          <Link href="/checkout">
-                            <a>Thanh Toán</a>
-                          </Link>
-                        </li>
-                        <li>
                           <Link href="/about">
                             <a>Về Chúng Tôi</a>
                           </Link>
@@ -229,15 +225,16 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                     <form action="#">
                       <div className="search-icon p-relative">
                         <input type="text" placeholder="Tìm Khóa Học...." />
-                        <button type="submit">
-                          <i className="fas fa-search"></i>
-                        </button>
+                        <Link href="/course">
+                          <button type="submit">
+                            <i className="fas fa-search"></i>
+                          </button>
+                        </Link>
                       </div>
                     </form>
                   </div>
                   <div className="cart-wrapper mr-30">
-                    <a
-                      href="#!"
+                    <button
                       className="cart-toggle-btn"
                       onClick={() => {
                         setCartOpen(!cartOpen);
@@ -276,13 +273,11 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                         </svg>
                         <span className="item-number">
                           <CartContext.Consumer>
-                            {({ cartItems }) => (
-                              <Link href="/course">{cartItems.length}</Link>
-                            )}
+                            {({ cartItems }) => <> {cartItems.length}</>}
                           </CartContext.Consumer>
                         </span>
                       </div>
-                    </a>
+                    </button>
                   </div>
                   <div className="main-menu d-none d-xxl-block mr-80">
                     <nav id="mobile-menu">
@@ -295,7 +290,10 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                             className="rounded-circle shadow-lg rounded"
                             width="40px"
                             height="40px"
-                            src={avtUserProfile}
+                            src={
+                              avtUserProfile ||
+                              "https://cdn-icons-png.flaticon.com/512/1053/1053244.png?w=360"
+                            }
                           />
 
                           <ul className="sub-menu">

@@ -103,13 +103,17 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
           </div>
           <div className="video-wishlist">
             <CartContext.Consumer>
-              {({ addToCart }) => (
-                <button
-                  className="video-cart-btn po"
-                  onClick={() => addToCart(course)}
-                >
-                  <i className="fal fa-shopping-cart"></i>Thêm Vào Giỏ Hàng
-                </button>
+              {({ addToCart, cartItems }) => (
+                <>
+                  <button
+                    className="video-cart-btn po"
+                    onClick={() => {
+                      addToCart(course);
+                    }}
+                  >
+                    <i className="fal fa-shopping-cart"></i>Thêm Vào Giỏ Hàng
+                  </button>
+                </>
               )}
             </CartContext.Consumer>
           </div>
