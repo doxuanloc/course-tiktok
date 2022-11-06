@@ -8,38 +8,41 @@ const CheckoutMain = () => {
   const [BankTransfer, setBankTransfer] = useState(true);
   const [courseCheckout, setCourseCheckout] = useState([]);
   const [statusCheckOut, setStatusCheckout] = useState();
+  const [nameOrder, setNameOrder] = useState();
   const [total, setTotal] = useState(0);
   const router = useRouter();
 
   const GET_CHECKOUT_URL = "orders";
   function handleCheckOut() {
     router.push("/course");
-    localStorage.removeItem("cart", "total", "id-order");
-    toast.success("Chờ Xử Lý");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("total");
+    localStorage.removeItem("id-order");
+
+    toast.success(statusCheckOut);
   }
-  // const total =
-  //   typeof window !== "undefined" ? localStorage.getItem("total") : null;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idOrder = localStorage.getItem("id-order");
+
     setTotal(localStorage.getItem("total"));
-    console.log("courseCheckout", courseCheckout);
-    if (token && idOrder) {
-      axios
-        .get(`${GET_CHECKOUT_URL}/${idOrder}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setCourseCheckout(res.data.data.items);
-          setStatusCheckout(res.data.data.status);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+
+    axios
+      .get(`${GET_CHECKOUT_URL}/${idOrder}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setCourseCheckout(res.data.data.items);
+        console.log("check");
+        setStatusCheckout(res.data.data.status);
+        setNameOrder(res.data.data.customer.fullName);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -50,7 +53,7 @@ const CheckoutMain = () => {
       />
 
       <section className="coupon-area pt-100 pb-30">
-        <h1 className="pl-200 text-info">Chào bạn !</h1>
+        <h1 className="pl-200 text-info">Chào {nameOrder} !!</h1>
       </section>
 
       <section className="checkout-area pb-70">
@@ -68,7 +71,7 @@ const CheckoutMain = () => {
                           <th className="product-total">Giá</th>
                         </tr>
                       </thead>
-                      {courseCheckout.map((item, index) => (
+                      {courseCheckout?.map((item, index) => (
                         <tbody key={index}>
                           <tr className="cart_item">
                             <td className="product-name">

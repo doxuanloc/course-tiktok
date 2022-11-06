@@ -11,6 +11,8 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const LOGIN_URL = "auth/login";
 
   useEffect(() => {
@@ -18,6 +20,7 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
   }, []);
 
   const handleSignIn = async (e) => {
+    setLoading(true);
     e.preventDefault();
     await axios
       .post(
@@ -41,6 +44,7 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
         setUsername("");
         setPassword("");
       });
+    setLoading(false);
   };
 
   return (
@@ -89,12 +93,20 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
           </div>
           <div className="mb-20 gap-2 d-grid">
             <button
-              type="submit"
+              type="button"
               className="btn btn-primary"
               onClick={handleSignIn}
               disabled={!username || !password ? true : false}
             >
-              Đăng Nhập
+              {" "}
+              {loading && (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              )}
+              {"  "}Đăng Nhập
             </button>
           </div>
           <div className="registered wrapper">

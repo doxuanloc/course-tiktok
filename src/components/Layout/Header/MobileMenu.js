@@ -104,80 +104,24 @@ const MobileMenu = ({ setMenuOpen, menuOpen }) => {
           </div>
           <div className="mm-menu mb-30 d-block d-xl-none">
             <ul>
-              <li
-                className={courses ? "has-droupdown active" : "has-droupdown"}
-              >
-                <a
-                  onClick={() => {
-                    openMobileMenu("courses");
-                  }}
-                >
-                  <Link href="/course">
-                    <a>Khóa Học</a>
-                  </Link>
-                </a>
+              <li>
+                <Link href="/course">
+                  <a>Khóa Học</a>
+                </Link>
               </li>
-              <li
-                className={project ? "has-droupdown active" : "has-droupdown"}
-              >
-                <a
-                  onClick={() => {
-                    openMobileMenu("project");
-                  }}
-                >
-                  Cửa Hàng
-                </a>
-                <ul className={project ? "sub-menu active" : "sub-menu"}>
-                  <li>
-                    <Link href="/shop-details">
-                      <a>Chi Tiết Cửa Hàng</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/cart">
-                      <a>Giỏ Hàng</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/checkout">
-                      <a>Thanh Toán</a>
-                    </Link>
-                  </li>
-                </ul>
+              <li>
+                <Link href="/about">
+                  <a>Về Chúng Tôi</a>
+                </Link>
               </li>
-              <li className={pages ? "has-droupdown active" : "has-droupdown"}>
-                <a
-                  onClick={() => {
-                    openMobileMenu("pages");
-                  }}
-                >
-                  Trang
-                </a>
-                <ul className={pages ? "sub-menu active" : "sub-menu"}>
-                  <li>
-                    <Link href="/about">
-                      <a>Về Chúng Tôi</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/contact">
-                      <a>Liên Hệ</a>
-                    </Link>
-                  </li>
-                </ul>
+              <li>
+                <Link href="/contact">
+                  <a>Liên Hệ</a>
+                </Link>
               </li>
             </ul>
           </div>
-          <div className="offset-widget offset_searchbar mb-30">
-            <div className="menu-search position-relative ">
-              <form action="#" className="filter-search-input">
-                <input type="text" placeholder="Tìm Kiếm Từ Khóa..." />
-                <button>
-                  <i className="fal fa-search"></i>
-                </button>
-              </form>
-            </div>
-          </div>
+
           <div className="offset-widget offset_menu-top mb-20">
             <div className="header-menu-top-icon mb-20">
               <a href="#">

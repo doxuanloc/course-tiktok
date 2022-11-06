@@ -9,7 +9,7 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
   const [phoneUser, setPhoneUser] = useState();
   const [fullNameUser, setFullnameUser] = useState();
   const [storedCart, setStoredCart] = useState([]);
-  const [allIdCart, setAllIdCart] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const ORDER_URL = "/orders";
   const GET_PROFILE_URL = "auth/profile";
@@ -20,7 +20,6 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     setStoredCart(JSON.parse(localStorage.getItem("cart")));
-
     if (token) {
       axios
         .get(GET_PROFILE_URL, {
@@ -36,45 +35,48 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
           console.log(err);
         });
     }
-  }, []);
+  }, [cartOpen]);
 
   async function handleCheckOut() {
     const token = localStorage.getItem("token");
-    var _allIdCart = [];
-    for (var i = 0; i < storedCart?.length; i++) {
-      _allIdCart.push(storedCart[i]._id);
-      setAllIdCart([..._allIdCart]);
-    }
+    setLoading(true);
+    var allIdCart = [];
+    var courseId_Object = {};
 
-    await axios
-      .post(
-        ORDER_URL,
-        {
-          customerInfo: {
-            phoneNumber: phoneUser,
-            fullName: fullNameUser,
-          },
-          items: [
-            {
-              course: allIdCart,
+    if (token && storedCart) {
+      for (var i = 0; i < storedCart?.length; i++) {
+        courseId_Object.course = storedCart[i]._id;
+        allIdCart.push(courseId_Object);
+      }
+      console.log(allIdCart);
+      await axios
+        .post(
+          ORDER_URL,
+          {
+            customerInfo: {
+              phoneNumber: phoneUser,
+              fullName: fullNameUser,
             },
-          ],
-          paymentType: "BANKING",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+            items: [...allIdCart],
+            paymentType: "BANKING",
           },
-        }
-      )
-      .then((res) => {
-        localStorage.setItem("id-order", res.data.data._id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    router.push("/checkout");
-    setCartOpen(false);
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("id-order", res.data.data._id);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      router.push("/checkout");
+      setCartOpen(false);
+      setLoading(false);
+    }
   }
 
   return (
@@ -132,18 +134,36 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
                       <span>{total} đ</span>
                     </div>
                   </div>
-                  {cartItems.length !== 0 ? (
+                  {loading ? (
                     <button
                       className="video-cart-btn ml-60"
-                      onClick={() => handleCheckOut(storedCart)}
+                      type="button"
+                      disabled
                     >
-                      <Link href="/checkout">
-                        <i className="fa fa-credit-card"></i>
-                      </Link>{" "}
-                      Thanh Toán Ngay
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      {"  "}
+                      Đang Xử Lý. . . . .
                     </button>
                   ) : (
-                    ""
+                    <>
+                      {cartItems.length !== 0 ? (
+                        <button
+                          className="video-cart-btn ml-60"
+                          onClick={() => handleCheckOut(storedCart)}
+                        >
+                          <Link href="/checkout">
+                            <i className="fa fa-credit-card"></i>
+                          </Link>{" "}
+                          Thanh Toán Ngay
+                        </button>
+                      ) : (
+                        ""
+                      )}
+                    </>
                   )}
                 </div>
               </>

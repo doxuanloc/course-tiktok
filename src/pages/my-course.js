@@ -16,21 +16,21 @@ import { useRouter } from "next/router";
 export default function MyCourse() {
   const [dataMyCourses, setDataMyCourses] = useState([]);
   const [loading, setLoading] = useState(false);
-  const DATA_COURSES_URL = "courses";
+  const DATA_COURSES_URL = "courses/my-courses";
 
   const router = useRouter();
 
   async function getDataCourse() {
     const token = localStorage.getItem("token");
+    console.log(token);
     try {
       await axios
-        .get(DATA_COURSES_URL, JSON.stringify({}), {
+        .get(DATA_COURSES_URL, {
           headers: {
-            Authorization: `${token}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          // console.log("check", res);
           setDataMyCourses(res.data.data);
         });
       setLoading(true);
@@ -140,13 +140,28 @@ export default function MyCourse() {
                           </div>
                         </div>
                       ))}
+
+                      {dataMyCourses && (
+                        <div class="d-block justify-content-center">
+                          <div class="alert alert-warning" role="alert">
+                            Bạn Chưa Có Khóa Học Nào!
+                          </div>
+                          <button type="button" class="btn btn-info">
+                            <Link href="/course">Đến Trang Khóa Học</Link>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
             </section>
           ) : (
-            <ReactBootStrap.Spinner animation="border" />
+            <div className="d-flex justify-content-center pb-50">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
           )}
         </main>
       </div>

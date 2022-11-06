@@ -12,6 +12,7 @@ import { CartContext } from "../../../../contexts/Cart";
 const HeaderUser = ({ setShowHeaderUser }) => {
   // sticky nav
   const { sticky } = useSticky();
+  const router = useRouter();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -19,12 +20,12 @@ const HeaderUser = ({ setShowHeaderUser }) => {
   const [signUpOpen, setSingUpOpen] = useState(false);
   const [usernameProfile, setUsernameProfile] = useState("");
   const [avtUserProfile, setAvtUserProfile] = useState("");
+  const [token, setToken] = useState();
 
   const GET_USER_URL = "auth/profile/";
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    localStorage.setItem("fullName", usernameProfile);
+    setToken(localStorage.getItem("token"));
 
     if (token) {
       axios
@@ -41,14 +42,12 @@ const HeaderUser = ({ setShowHeaderUser }) => {
           console.log(err);
         });
     }
-  }, []);
-
-  const router = useRouter();
+  }, [token]);
 
   const logout = () => {
     localStorage.clear();
     router.push("/");
-    setShowHeaderUser(false);
+    if (setShowHeaderUser) setShowHeaderUser(false);
   };
 
   return (

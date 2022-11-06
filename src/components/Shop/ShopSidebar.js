@@ -43,7 +43,7 @@ const ShopSidebar = () => {
               <div className="course-sidebar-list">
                 <input className="edu-check-box" type="checkbox" id="e-bus" />
                 <label className="edu-check-label" htmlFor="e-bus">
-                  Edit (12)
+                  Edit
                 </label>
               </div>
             </li>
@@ -51,7 +51,7 @@ const ShopSidebar = () => {
               <div className="course-sidebar-list">
                 <input className="edu-check-box" type="checkbox" id="e-dev" />
                 <label className="edu-check-label" htmlFor="e-dev">
-                  Marketing (9)
+                  Marketing
                 </label>
               </div>
             </li>
@@ -72,7 +72,7 @@ const ShopSidebar = () => {
               <div className="course-sidebar-list">
                 <input className="edu-check-box" type="checkbox" id="e-beg" />
                 <label className="edu-check-label" htmlFor="e-beg">
-                  Beginner (36)
+                  Beginner
                 </label>
               </div>
             </li>
@@ -80,7 +80,7 @@ const ShopSidebar = () => {
               <div className="course-sidebar-list">
                 <input className="edu-check-box" type="checkbox" id="e-inter" />
                 <label className="edu-check-label" htmlFor="e-inter">
-                  BASIC (25)
+                  BASIC
                 </label>
               </div>
             </li>
@@ -88,7 +88,7 @@ const ShopSidebar = () => {
               <div className="course-sidebar-list">
                 <input className="edu-check-box" type="checkbox" id="e-exp" />
                 <label className="edu-check-label" htmlFor="e-exp">
-                  Pro (32)
+                  Pro
                 </label>
               </div>
             </li>
