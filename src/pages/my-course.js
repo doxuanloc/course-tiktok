@@ -142,11 +142,11 @@ export default function MyCourse() {
                       ))}
 
                       {dataMyCourses && (
-                        <div class="d-block justify-content-center">
-                          <div class="alert alert-warning" role="alert">
+                        <div className="d-block justify-content-center">
+                          <div className="alert alert-warning" role="alert">
                             Bạn Chưa Có Khóa Học Nào!
                           </div>
-                          <button type="button" class="btn btn-info">
+                          <button type="button" className="btn btn-info">
                             <Link href="/course">Đến Trang Khóa Học</Link>
                           </button>
                         </div>
