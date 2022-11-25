@@ -3,6 +3,7 @@ import SignUp from "./SignUp";
 
 import axios from "../../../api/axios";
 import { toast } from "react-toastify";
+import { Button, Form, Modal, Spinner } from "react-bootstrap";
 
 const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
   const userRef = useRef();
@@ -10,6 +11,17 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
+  const [emailReset, setEmailReset] = useState();
+  const [showTypeCodeReset, setShowTypeCodeReset] = useState(false);
+  const [codeReset, setCodeReset] = useState();
+  const [loadingBtn, setLoadingBtn] = useState(false);
+
+  const [passwordReset, setPasswordReset] = useState();
+  const [confirmPasswordReset, setConfirmPasswordReset] = useState();
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [loading, setLoading] = useState(false);
 
@@ -18,6 +30,59 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
   useEffect(() => {
     userRef.current.focus();
   }, []);
+
+  const sendMailReset = async () => {
+    setLoadingBtn(true);
+    var data = {
+      email: emailReset,
+    };
+    var config = {
+      method: "post",
+      url: "https://courses-booking.vercel.app/auth/forgot-password",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        toast.info(response.data.data.message);
+        setShowTypeCodeReset(true);
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.message);
+      });
+    setLoading(false);
+  };
+
+  const handleChangePasswordReset = async () => {
+    setLoading(true);
+    var data = JSON.stringify({
+      code: codeReset,
+      password: passwordReset,
+      confirmPassword: confirmPasswordReset,
+    });
+
+    var config = {
+      method: "post",
+      url: "https://courses-booking.vercel.app/auth/reset-password",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setShowTypeCodeReset(false);
+        toast.success(response.data.data.message);
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.message);
+      });
+    setLoading(false);
+  };
 
   const handleSignIn = async (e) => {
     setLoading(true);
@@ -124,7 +189,125 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
               </span>
             </div>
             <div className="forget-password">
-              <a href="#">Quên Mật Khẩu</a>
+              <button onClick={handleShow} className="btn btn-link">
+                Quên Mật Khẩu
+              </button>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Reset Mật Khẩu</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Địa Chỉ Email Đã Đăng Kí</Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder="email@gmail.com"
+                        autoFocus
+                        onChange={(e) => setEmailReset(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+                <Modal.Body>
+                  {showTypeCodeReset && (
+                    <Form>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Label>
+                          Mã Xác Nhận Đã Gửi Về Email Bạn!
+                        </Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder="Nhận Mã Xác Nhận"
+                          autoFocus
+                          onChange={(e) => setCodeReset(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Label>Mật Khẩu Mới</Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Mật Khẩu"
+                          autoFocus
+                          onChange={(e) => setPasswordReset(e.target.value)}
+                        />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Label>Nhập Lại Mật Khẩu Mới</Form.Label>
+                        <Form.Control
+                          type="password"
+                          placeholder="Xác Nhận Mật Khẩu"
+                          autoFocus
+                          onChange={(e) =>
+                            setConfirmPasswordReset(e.target.value)
+                          }
+                        />
+                        {loading ? (
+                          <Button variant="primary" disabled>
+                            <Spinner
+                              as="span"
+                              animation="grow"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />{" "}
+                            Đang Xử Lý...
+                          </Button>
+                        ) : (
+                          <Button
+                            className="mt-20"
+                            variant="success"
+                            onClick={handleChangePasswordReset}
+                          >
+                            Thay Đổi Mật Khẩu
+                          </Button>
+                        )}
+                      </Form.Group>
+                    </Form>
+                  )}
+                  <>
+                    {!showTypeCodeReset && (
+                      <>
+                        <Button
+                          className="mr-20"
+                          variant="secondary"
+                          onClick={handleClose}
+                        >
+                          Đóng
+                        </Button>
+                        {!loadingBtn ? (
+                          <Button variant="primary" onClick={sendMailReset}>
+                            Reset Mật Khẩu
+                          </Button>
+                        ) : (
+                          <Button variant="primary" disabled>
+                            <Spinner
+                              as="span"
+                              animation="grow"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />{" "}
+                            Đang Xử Lý...
+                          </Button>
+                        )}
+                      </>
+                    )}
+                  </>
+                </Modal.Body>
+              </Modal>
             </div>
           </div>
           <div className="sign-social text-center">

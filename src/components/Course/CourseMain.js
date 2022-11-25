@@ -27,7 +27,7 @@ const CourseMain = () => {
           },
         })
         .then((res) => {
-          // console.log("check", res);
+          console.log("check", res);
           setDataCourses(res.data.data);
           setNumPage(res.data.pagination.pageCount);
         });
@@ -69,12 +69,19 @@ const CourseMain = () => {
               <div className="col-xl-9 col-lg-8 col-md-12">
                 <div className="row">
                   {dataCourses?.map((item) => (
-                    <div className="col-xl-4 col-lg-6 col-md-6" key={item._id}>
+                    <div
+                      className="col-xl-4 col-lg-6 col-md-6 h-100"
+                      key={item._id}
+                    >
                       <div className="protfolio-course-2-wrapper mb-30">
                         <div className="student-course-img">
                           <Link href="/course">
                             <a>
-                              <img src={item.thumbnail} alt="course-img" />
+                              <img
+                                src={item.thumbnail}
+                                alt="course-img"
+                                className="rounded"
+                              />
                             </a>
                           </Link>
                         </div>
@@ -82,9 +89,13 @@ const CourseMain = () => {
                           <div className="course-info-wrapper">
                             <div className="cart-info-body">
                               <Link href="/course">
-                                <a className="category-color category-color-3">
-                                  {item.tags[1]}
-                                </a>
+                                <>
+                                  {item.tags.map((tag) => (
+                                    <a className="category-color category-color-3 mr-10">
+                                      {tag}
+                                    </a>
+                                  ))}
+                                </>
                               </Link>
                               <Link href="/course-details">
                                 <a>
@@ -98,8 +109,8 @@ const CourseMain = () => {
                               </div>
                               <div className="info-cart-text">
                                 <ul>
-                                  {item.highlights?.map((hight, index) => (
-                                    <li key={index}>
+                                  {item.highlights?.map((hight) => (
+                                    <li key={hight}>
                                       <i className="far fa-check"></i>
                                       {hight}
                                     </li>

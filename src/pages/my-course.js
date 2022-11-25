@@ -12,17 +12,18 @@ import axios from "../api/axios";
 import * as ReactBootStrap from "react-bootstrap";
 
 import { useRouter } from "next/router";
+import ModalCode from "../components/Modals/ModalCode/ModalCode";
 
 export default function MyCourse() {
   const [dataMyCourses, setDataMyCourses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showModalCode, setShowModalCode] = useState(false);
   const DATA_COURSES_URL = "courses/my-courses";
 
   const router = useRouter();
 
   async function getDataCourse() {
     const token = localStorage.getItem("token");
-    console.log(token);
     try {
       await axios
         .get(DATA_COURSES_URL, {
@@ -31,12 +32,18 @@ export default function MyCourse() {
           },
         })
         .then((res) => {
+          console.log(res);
           setDataMyCourses(res.data.data);
         });
       setLoading(true);
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async function getDetailMyCourse(id) {
+    router.push("/course-details");
+    localStorage.setItem("id", id);
   }
 
   useEffect(() => {
@@ -68,11 +75,22 @@ export default function MyCourse() {
             breadcrumbSubTitle="Khóa Học Của Tôi"
           />
           <div className="pb-30"></div>
+          <ModalCode
+            showModalCode={showModalCode}
+            setShowModalCode={setShowModalCode}
+          />
           {loading ? (
             <section className="course-content-area pb-90">
               <div className="container">
                 <div className="row mb-10">
                   <div className="col-xl-3 col-lg-4 col-md-12">
+                    <button
+                      type="button"
+                      className="btn btn-danger mb-10"
+                      onClick={() => setShowModalCode(true)}
+                    >
+                      Nhập CODE Khóa Học Đã Mua !
+                    </button>
                     <ShopSidebar />
                   </div>
                   <div className="col-xl-9 col-lg-8 col-md-12">
@@ -84,47 +102,27 @@ export default function MyCourse() {
                         >
                           <div className="protfolio-course-2-wrapper mb-30">
                             <div className="student-course-img">
-                              <Link href="/course">
-                                <img src={item.thumbnail} alt="course-img" />
-                              </Link>
+                              <img src={item.thumbnail} alt="course-img" />
                             </div>
                             <div className="course-cart">
                               <div className="course-info-wrapper">
                                 <div className="cart-info-body">
-                                  <Link href="/course">
-                                    <a className="category-color category-color-3">
-                                      {item.tags[1]}
-                                    </a>
-                                  </Link>
-                                  <Link href="/course-details">
-                                    <h3>{item.title}</h3>
-                                  </Link>
-                                  <div className="cart-lavel">
-                                    <h5>
-                                      Level : <span>{item.level}</span>
-                                    </h5>
-                                  </div>
-                                  <div className="info-cart-text">
-                                    <ul>
-                                      {item.highlights?.map((hight, index) => (
-                                        <li key={index}>
-                                          <i className="far fa-check"></i>
-                                          {hight}
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                  <div className="course-action">
-                                    <Link href="/course-details">
-                                      <a className="c-share-btn">
-                                        <i className="flaticon-previous"></i>
-                                      </a>
-                                    </Link>
+                                  <h3>{item.title}</h3>
+                                  <div className="course-action position-absolute bottom-0 mb-20">
+                                    <button
+                                      className="btn btn-info"
+                                      onClick={() =>
+                                        getDetailMyCourse(item._id)
+                                      }
+                                    >
+                                      <i className="flaticon-book pr-10"></i>
+                                      Học Ngay!
+                                    </button>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="portfolio-course-2-content"></div>
+                            <div className="h-100"></div>
                             <div className="course-2-footer">
                               <div className="coursee-clock">
                                 <i className="flaticon-clock"></i>
@@ -141,14 +139,16 @@ export default function MyCourse() {
                         </div>
                       ))}
 
-                      {dataMyCourses && (
+                      {dataMyCourses === [] && (
                         <div className="d-block justify-content-center">
                           <div className="alert alert-warning" role="alert">
-                            Bạn Chưa Có Khóa Học Nào!
+                            Bạn Chưa Có Khóa Học Nào!{" "}
+                            <Link href="/course">
+                              <a href="#" className="link-info">
+                                Đến Trang Khóa Học Ngay!
+                              </a>
+                            </Link>
                           </div>
-                          <button type="button" className="btn btn-info">
-                            <Link href="/course">Đến Trang Khóa Học</Link>
-                          </button>
                         </div>
                       )}
                     </div>

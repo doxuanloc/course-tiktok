@@ -121,7 +121,7 @@ const HeaderCart = ({ setCartOpen, cartOpen }) => {
                             </div>
                           </div>
                           <button
-                            className="fal fa-times"
+                            className="fal fa-times ml-30"
                             onClick={() => removeFromCart(item._id)}
                           ></button>
                         </li>

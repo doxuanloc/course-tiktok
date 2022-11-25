@@ -3,7 +3,7 @@ import HomeMain from "../components/Home/HomeMain";
 import Footer from "../components/Layout/Footer/Footer";
 import Header from "../components/Layout/Header";
 
-export default function Home() {
+export default function Home() {  
   return (
     <>
       <Head>

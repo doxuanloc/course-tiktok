@@ -7,10 +7,16 @@ import CourseDetailsSidebar from "./CourseDetailsSidebar";
 
 import { toast } from "react-toastify";
 import axios from "../../api/axios";
+import ReactPlayer from "react-player";
+import Modal from "react-responsive-modal";
 
 const CourseDetailsMain = () => {
   const [isActive, setActive] = useState("false");
   const [dataCourses, setDataCourses] = useState();
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+  const [listLessons, setListLesson] = useState([]);
 
   const DATA_COURSES_URL = "courses";
 
@@ -20,30 +26,59 @@ const CourseDetailsMain = () => {
     setActive(!isActive);
   };
 
+  function checkIsStudent() {
+    if (listLessons[1].url === "") {
+      return false;
+    }
+    return true;
+  }
+
   async function getDataCourse() {
     const token = localStorage.getItem("token");
     const id = localStorage.getItem("id");
+    console.log(dataCourses);
 
+    var config = {
+      method: "get",
+      url: `${DATA_COURSES_URL}/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     if (token) {
-      await axios
-        .get(
-          `${DATA_COURSES_URL}/${id}`,
-          JSON.stringify({
-            headers: {
-              Authorization: `${token}`,
-            },
-          })
-        )
-        .then((res) => {
+      axios(config)
+        .then(function (res) {
           setDataCourses(res.data.data);
+          setListLesson(res.data.data.lessons);
         })
-        .catch((err) => {
+        .catch(function (res) {
           console.log(err);
         });
     } else {
       toast.error("Đăng Nhập! Để xem chi tiết khóa học");
       router.push("/");
     }
+    // if (token) {
+    //   await axios
+    //     .get(
+    //       `${DATA_COURSES_URL}/${id}`,
+    //       JSON.stringify({
+    //         headers: {
+    //           Authorization: `${token}`,
+    //         },
+    //       })
+    //     )
+    //     .then((res) => {
+    //       setDataCourses(res.data.data);
+    //       setListLesson(res.data.data.lessons);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   toast.error("Đăng Nhập! Để xem chi tiết khóa học");
+    //   router.push("/");
+    // }
   }
   useEffect(() => {
     getDataCourse();
@@ -188,31 +223,72 @@ const CourseDetailsMain = () => {
                           aria-labelledby="headingOne"
                           data-bs-parent="#accordionExample"
                         >
-                          <div className="accordion-body">
-                            {dataCourses?.lessons?.map((item, index) => (
+                          {dataCourses?.lessons?.map((item) => (
+                            <div
+                              className={
+                                item.url !== "" ? "body" : "accordion-body"
+                              }
+                            >
                               <div
                                 className="course-curriculum-content d-sm-flex justify-content-between align-items-center"
-                                key={index}
+                                key={item?.title}
                               >
                                 <div className="course-curriculum-info">
                                   <i className="flaticon-youtube"></i>
-                                  <a href={item?.url}>
+                                  <button
+                                    disabled={item.url === ""}
+                                    onClick={() => setOpen(true)}
+                                  >
                                     <h4>{item?.title}</h4>
-                                  </a>
+                                  </button>
+                                  <div>
+                                    <Modal
+                                      open={open}
+                                      onClose={onCloseModal}
+                                      styles={{
+                                        modal: {
+                                          maxWidth: "unset",
+                                          width: "70%",
+                                          padding: "unset",
+                                        },
+                                        overlay: {
+                                          background: "rgba(0, 0, 0, 0.5)",
+                                        },
+                                        closeButton: {
+                                          background: "white",
+                                        },
+                                      }}
+                                      center
+                                    >
+                                      {listLessons?.map((item) => (
+                                        <>
+                                          <p>{item.title}</p>
+                                          <ReactPlayer
+                                            url={item?.url}
+                                            width="100%"
+                                            height="calc(100vh - 200px)"
+                                            controls={true}
+                                          />
+                                        </>
+                                      ))}
+                                    </Modal>
+                                  </div>
                                 </div>
                                 <div className="course-curriculum-meta">
                                   <span>5:30</span>
                                   <span className="time">
                                     {" "}
-                                    <i className="flaticon-lock"></i>
+                                    {item.url === "" && (
+                                      <i className="flaticon-lock"></i>
+                                    )}
                                   </span>
                                 </div>
                               </div>
-                            ))}
-                          </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                      <div className="accordion-item">
+                      {/* <div className="accordion-item">
                         <div className="accordion-header" id="headingFive">
                           <button
                             className="accordion-button collapsed"
@@ -267,15 +343,31 @@ const CourseDetailsMain = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
-              <CourseDetailsSidebar dataCourses={dataCourses} />
-            </div>
+            {!checkIsStudent ? (
+              <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
+                <CourseDetailsSidebar dataCourses={dataCourses} />
+              </div>
+            ) : (
+              <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
+                <div
+                  className="card text-black bg-info mb-3"
+                  styles="max-width: 20rem;"
+                >
+                  <div className="card-header">
+                    <h2 className="pt-30">Tiến Độ Học</h2>
+                  </div>
+                  <div className="card-body">
+                    <h5 className="card-title">0/2</h5>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

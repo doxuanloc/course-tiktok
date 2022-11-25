@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-css-tags */
 import Head from "next/head";
 import React, { useEffect } from "react";
-import { Provider } from "react-redux";
+
 import "react-responsive-modal/styles.css";
 import "./index.scss";
-import { store } from "../redux/store";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "../contexts/Cart";

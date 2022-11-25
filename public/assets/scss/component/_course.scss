@@ -65,6 +65,7 @@
 	padding: 30px 40px;
 	box-shadow: 0px 0px 70px rgba(15, 38, 71, 0.2);
 	min-width: 380px;
+	min-height: 200px;
 	position: absolute;
 	opacity: 0;
 	visibility: hidden;
@@ -556,6 +557,11 @@
 	margin-bottom: 15px;
 	overflow: hidden;
 	border-radius: 8px;
+	object-fit: cover;
+}
+
+.student-course-img img {
+	height: 170px;
 }
 .student-course-linkter {
 	display: flex;
@@ -946,6 +952,7 @@
 }
 .portfolio-course-2-content {
 	padding: 0 20px;
+	min-height: 130px;
 }
 .course-2-footer {
 	display: flex;

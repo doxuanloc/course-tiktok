@@ -40,6 +40,9 @@ const HeaderUser = ({ setShowHeaderUser }) => {
         })
         .catch((err) => {
           console.log(err);
+          if (err.response.data.message === "Unauthorized") {
+            localStorage.removeItem("token");
+          }
         });
     }
   }, [token]);
@@ -342,7 +345,13 @@ const HeaderUser = ({ setShowHeaderUser }) => {
         </div>
       </div>
 
-      <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <MobileMenu
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        usernameProfile={usernameProfile}
+        avtUserProfile={avtUserProfile}
+        onClick={logout}
+      />
       <div
         onClick={() => setMenuOpen(false)}
         className={

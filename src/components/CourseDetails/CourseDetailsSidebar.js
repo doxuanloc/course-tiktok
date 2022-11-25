@@ -17,6 +17,8 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
 
   const router = useRouter();
 
+  console.log(course);
+
   return (
     <React.Fragment>
       <Modal
@@ -37,7 +39,12 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
         }}
         center
       >
-        <ReactPlayer url="" width="100%" height="calc(100vh - 200px)" />
+        <ReactPlayer
+          url={course?.lessons[0]?.url}
+          width="100%"
+          height="calc(100vh - 200px)"
+          controls={true}
+        />
       </Modal>
       <div className="course-video-widget">
         <div className="course-widget-wrapper mb-30">
@@ -87,7 +94,9 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
                   <span>Danh Mục</span>
                 </div>
                 <div className="video-corse-info">
-                  <span>{course?.tags?.[1]}</span>
+                  {course?.tags?.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
                 </div>
               </li>
               <li>
