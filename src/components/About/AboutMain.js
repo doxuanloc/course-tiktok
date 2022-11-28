@@ -15,7 +15,10 @@ const AboutMain = () => {
         breadcrumbTitle="Về Chúng Tôi"
         breadcrumbSubTitle="Về Chúng Tôi"
       />
-      <AboutCounterSection />
+      <AboutFeatureSection />
+      <AboutFeatureVideo />
+      <div className="pb-100"></div>
+      <KnowUsBetter />
     </main>
   );
 };
