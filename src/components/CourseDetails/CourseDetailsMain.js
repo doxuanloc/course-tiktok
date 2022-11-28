@@ -225,6 +225,7 @@ const CourseDetailsMain = () => {
                         >
                           {dataCourses?.lessons?.map((item) => (
                             <div
+                              key={item.title}
                               className={
                                 item.url !== "" ? "body" : "accordion-body"
                               }
@@ -245,7 +246,7 @@ const CourseDetailsMain = () => {
                                     <Modal
                                       open={open}
                                       onClose={onCloseModal}
-                                      styles={{
+                                      style={{
                                         modal: {
                                           maxWidth: "unset",
                                           width: "70%",
@@ -262,7 +263,7 @@ const CourseDetailsMain = () => {
                                     >
                                       {listLessons?.map((item) => (
                                         <>
-                                          <p>{item.title}</p>
+                                          <p key={item.title}>{item.title}</p>
                                           <ReactPlayer
                                             url={item?.url}
                                             width="100%"
@@ -357,7 +358,9 @@ const CourseDetailsMain = () => {
               <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
                 <div
                   className="card text-black bg-info mb-3"
-                  styles="max-width: 20rem;"
+                  style={{
+                    maxWidth: "20rem",
+                  }}
                 >
                   <div className="card-header">
                     <h2 className="pt-30">Tiến Độ Học</h2>

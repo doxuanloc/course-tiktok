@@ -71,8 +71,8 @@ const CheckoutMain = () => {
                           <th className="product-total">Giá</th>
                         </tr>
                       </thead>
-                      {courseCheckout?.map((item, index) => (
-                        <tbody key={index}>
+                      {courseCheckout?.map((item) => (
+                        <tbody key={item.title}>
                           <tr className="cart_item">
                             <td className="product-name">
                               {item.course.title}
