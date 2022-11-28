@@ -8,11 +8,13 @@ const CategorySlider = dynamic(
 );
 import CounterSection from "./CounterSection";
 import HeroSectionTwo from "./HeroSectionTwo";
+import AboutSection from "./AboutSection";
 
 const HomeMain = () => {
   return (
     <main>
       <HeroSectionTwo />
+      <AboutSection />
       <CounterSection />
       <CategorySlider />
     </main>

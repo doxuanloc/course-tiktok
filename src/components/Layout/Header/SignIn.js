@@ -123,7 +123,7 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
             <img
               width="500px"
               height="200px"
-              src="assets/img/logo/tiktok1.jpg"
+              src="https://nauphache.com/wp-content/uploads/2022/05/nau-pha-che-09-1024x721.png"
               alt="image not found"
             />
           </div>
@@ -159,7 +159,8 @@ const SignIn = ({ setSignInOpen, signInOpen, setShowHeaderUser }) => {
           <div className="mb-20 gap-2 d-grid">
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn"
+              style={{ backgroundColor: "#597535", color: "white" }}
               onClick={handleSignIn}
               disabled={!username || !password ? true : false}
             >

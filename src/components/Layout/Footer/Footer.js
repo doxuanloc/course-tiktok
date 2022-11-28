@@ -15,7 +15,7 @@ const Footer = () => {
                       <a>
                         <img
                           width="100px"
-                          src="assets/img/logo/tiktok.jpg"
+                          src="https://nauphache.com/wp-content/uploads/2022/05/nau-pha-che-09-1024x721.png"
                           alt="footer-logo"
                         />
                       </a>

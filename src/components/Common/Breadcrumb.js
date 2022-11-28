@@ -5,7 +5,10 @@ const Breadcrumb = ({ breadcrumbTitle, breadcrumbSubTitle }) => {
   return (
     <div
       className="hero-arera course-item-height"
-      style={{ background: "url(assets/img/slider/course-slider.jpg)" }}
+      style={{
+        background:
+          "url(https://statics.vinpearl.com/quan-cafe-dep-hai-phong-10_1632210824.jpg)",
+      }}
     >
       <div className="container">
         <div className="row">

@@ -60,9 +60,6 @@ const SignUp = ({ setSignUpOpen, signUpOpen }) => {
               alt="image not found"
             />
           </div>
-          <div className="signup-thumb">
-            <img src="assets/img/logo/tiktok.jpg" alt="image not found" />
-          </div>
         </div>
         <div className="signup-form-wrapper">
           <div className="signup-wrapper">
@@ -108,7 +105,8 @@ const SignUp = ({ setSignUpOpen, signUpOpen }) => {
           </div>
           <div className="d-grid gap-2">
             <button
-              className="btn btn-primary mb-30"
+              className="btn mb-30"
+              style={{ backgroundColor: "#597535", color: "white" }}
               type="button"
               onClick={handleSignUp}
               disabled={!usernameReg || !passwordReg || !telReg ? true : false}

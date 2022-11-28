@@ -264,7 +264,7 @@
 	}
 }
 .hero-area {
-	height: 750px;
+	height: 550px;
 	background-color: #edeff5;
 }
 .hero-thumb-01 {
@@ -297,6 +297,7 @@
 	}
 	h2 {
 		font-size: 50px;
+		color: #597535;
 		@media #{$xxl,$xl} {
 			font-size: 45px;
 		}
@@ -313,10 +314,10 @@
 }
 .slider-search-icon input {
 	width: 100%;
-	height: 70px;
-	background: $white;
+	height: 50px;
+	background: white;
 	outline: none;
-	border: 1px solid $border;
+	border: 1px solid #597535;
 	border-radius: 5px;
 	padding: 0px 40px 0 30px;
 }
@@ -340,7 +341,7 @@
 	top: 50%;
 	right: 23px;
 	transform: translatey(-50%);
-	color: $theme-color;
+	color: #597535;
 }
 .slider-course-content {
 	ul {
@@ -641,7 +642,7 @@
 // hero-3-style
 .hero-area-3 {
 	position: relative;
-	max-width: 1920px;
+	max-width: 1500px;
 	margin: 0 auto;
 	&:before {
 		position: absolute;

@@ -626,17 +626,17 @@ p {
 	text-align: center;
 	font-size: 16px;
 	font-weight: 600;
-	color: $heading-color;
-	background-color: $theme-color-2;
+	color: white;
+	background-color:#597535;
 	padding: 0 40px;
 	@include border-radius(4px);
 	@include transition(0.3s);
 	border: 1px solid transparent;
 	cursor: pointer;
 	&:hover {
-		background-color: $theme-color;
-		color: $white;
-		border-color: $theme-color;
+		background-color: white;
+		color: black;
+		border-color: #597535;
 	}
 }
 .edu-five-btn {
@@ -788,7 +788,7 @@ p {
 	height: 45px;
 	padding: 0 45px;
 	display: inline-block;
-	background-color: $theme-color;
+	background-color: #597535;
 	line-height: 45px;
 	border-radius: 4px;
 	font-size: 15px;
@@ -799,14 +799,15 @@ p {
 		padding: 0 35px;
 	}
 	&:hover {
-		background: $theme-color-2;
+		background: white;
+		border: 1px solid #597535;
 		color: $heading-color;
 	}
 }
 .c-share-btn {
 	width: 45px;
 	height: 45px;
-	border: 1px solid #dce8fe;
+	border: 1px solid #597535;
 	border-radius: 4px;
 	font-size: 19px;
 	color: #a6bce8;
@@ -814,8 +815,8 @@ p {
 	text-align: center;
 	@include transition(0.3s);
 	&:hover {
-		background: $theme-color;
-		border-color: $theme-color;
+		background: #597535;
+		border-color:#597535;
 		color: $white;
 	}
 }

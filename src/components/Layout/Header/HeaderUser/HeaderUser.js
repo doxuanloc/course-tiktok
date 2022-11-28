@@ -95,12 +95,12 @@ const HeaderUser = ({ setShowHeaderUser }) => {
             <div className="row align-items-center">
               <div className="col-xl-7 col-lg-7 col-md-5 col-sm-9 col-9">
                 <div className="header-left d-flex align-items-center">
-                  <div className="header-logo">
+                  <div className="header-logo pl-70">
                     <Link href="/">
                       <a>
                         <img
                           width="70px"
-                          src="assets/img/logo/tiktok.jpg"
+                          src="https://nauphache.com/wp-content/uploads/2022/05/nau-pha-che-09-1024x721.png"
                           alt="logo"
                         />
                       </a>
@@ -225,7 +225,7 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                 <div className="header-right d-flex align-items-center justify-content-end">
                   <div className="header-search d-none d-xxl-block mr-30">
                     <form action="#">
-                      <div className="search-icon p-relative">
+                      <div className="slider-search-icon p-relative">
                         <input type="text" placeholder="Tìm Khóa Học...." />
                         <Link href="/course">
                           <button type="submit">

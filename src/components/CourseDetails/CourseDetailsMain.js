@@ -51,7 +51,7 @@ const CourseDetailsMain = () => {
           setDataCourses(res.data.data);
           setListLesson(res.data.data.lessons);
         })
-        .catch(function (res) {
+        .catch(function (err) {
           console.log(err);
         });
     } else {
@@ -357,8 +357,9 @@ const CourseDetailsMain = () => {
             ) : (
               <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
                 <div
-                  className="card text-black bg-info mb-3"
+                  className="card text-white mb-3"
                   style={{
+                    backgroundColor: "#597535",
                     maxWidth: "20rem",
                   }}
                 >

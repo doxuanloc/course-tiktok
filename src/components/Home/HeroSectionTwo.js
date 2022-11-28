@@ -40,51 +40,42 @@ const HeroSectionTwo = () => {
       </div>
       <div className="container">
         <div className="hero-2-content-wrpapper position-relative">
-          <div className="hero-shape-3 d-none d-xl-block">
-            <img
-              className=""
-              src="assets/img/shape/shape-04.png"
-              alt="image not found"
-            />
-            <h5 className="slider-shap-text">
-              Hàng Đầu <br /> Việt Nam
-            </h5>
-          </div>
           <div className="hero-shape-2 d-none d-xl-block">
             <img src="assets/img/shape/shape-09.png" alt="shape" />
           </div>
           <div className="hero-shape-4 d-none d-lg-block">
-            <img src="assets/img/shape/shape-8.png" alt="shape" />
+            <img src="assets/img/shape/shape-10.png" alt="shape" />
           </div>
           <div className="hero-thumb-01 d-none d-xl-block">
-            <img src="assets/img/slider/hero-01.png" alt="shape" />
+            <img
+              src="https://nauphache.com/wp-content/uploads/2022/05/z3457445151597_9ea6babce8587d1a51c44ea4183521c2.jpg"
+              alt="shape"
+              style={{ width: "450px", height: "400px" }}
+            />
           </div>
           <div className="hero-thumb-02 d-none d-lg-block">
-            <img src="assets/img/slider/hero-02.png" alt="shape" />
+            <img
+              src="https://nauphache.com/wp-content/uploads/2022/05/z3451981932342_33edd4739552ed6413fceda14be212a0.jpg"
+              alt="shape"
+              style={{ width: "400px", height: "400px" }}
+            />
           </div>
           <div className="row justify-content-center">
             <div className="col-xl-8 col-lg-8 col-md-10">
               <div className="slider-content-wrapper">
                 <div className="hero-tittle-info text-center mb-45">
-                  <h2>
-                    <span className="down-mark-line-2">TikTok</span>
-                    <br />
-                    Academy Platform
-                  </h2>
+                  <h2 className="down-mark-line-2">Học Viện Pha Chế </h2>{" "}
                 </div>
-                <div className="slider-search ">
-                  <form action="#">
-                    <div className="slider-search-icon position-relative">
-                      <input type="text" placeholder="Tìm Kiếm Khóa Học...." />
-                      <Link href="course">
-                        <button type="submit">
-                          <i className="far fa-search"></i>
-                        </button>
-                      </Link>
-                    </div>
-                  </form>
-                </div>
-                <div className="slider-course-content text-center">
+                <div className="slider-course-content text-center pl-90">
+                  <div className="hero-shape-3 d-none d-xl-block">
+                    <img
+                      src="assets/img/shape/shape-04.png"
+                      alt="image not found"
+                    />
+                    <h5 className="slider-shap-text">
+                      Hàng Đầu <br /> Việt Nam
+                    </h5>
+                  </div>
                   <ul>
                     <li>
                       <i className="fas fa-check-circle text-success"></i>

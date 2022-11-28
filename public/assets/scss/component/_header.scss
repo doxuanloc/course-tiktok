@@ -67,7 +67,7 @@
 	background: #ffffff;
 	position: relative;
 	margin-bottom: 0;
-	border: 1px solid $border;
+	border: 1px solid #597535;
 	border-radius: 5px;
 	color: $heading-color;
 	height: 55px;
@@ -145,7 +145,7 @@
 				line-height: 1;
 				font-weight: 600;
 				&:hover {
-					color: $theme-color;
+					color: #597535;
 				}
 			}
 		}
@@ -235,7 +235,7 @@
 	top: -9px;
 	width: 20px;
 	height: 20px;
-	background: $theme-color;
+	background: #597535;
 	color: $white;
 	text-align: center;
 	line-height: 20px;
@@ -257,7 +257,7 @@
 	color: $heading-color;
 	font-weight: 600;
 	&:hover {
-		color: $theme-color;
+		color: #597535;
 	}
 }
 .user-btn-content {
@@ -290,15 +290,15 @@
 			.sub-menu {
 				background: $white none repeat scroll 0 0;
 				box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
-				left: 10px;
+				left: -20px;
 				opacity: 0;
+				width: 180px;
 				position: absolute;
 				top: 140%;
 				transition: all 0.3s ease 0s;
 				visibility: hidden;
-				width: 240px;
 				z-index: 9;
-				border-top: 3px solid $theme-color;
+				border-top: 3px solid #597535;
 				text-align: left;
 				padding: 15px 0;
 				li {
@@ -322,7 +322,7 @@
 						color: #212237;
 						position: relative;
 						&:hover {
-							color: $theme-color;
+							color: #597535;
 						}
 					}
 					a {
@@ -337,10 +337,10 @@
 			/*submenu end*/
 			&:hover {
 				a {
-					color: $theme-color;
+					color: #597535;
 				}
 				&.menu-item-has-children::after {
-					color: $theme-color;
+					color: #597535;
 					
 				}
 				> .sub-menu {
@@ -349,23 +349,8 @@
 					top: 100%;
 				}
 			}
-			&.menu-item-has-children {
-				position: relative;
-				&:after {
-					position: absolute;
-					content: "\f107";
-					font-size: 12px;
-					color: #212237;
-					top: 50%;
-					transform: translateY(-50%);
-					right: -14px;
-					font-family: "Font Awesome 5 Pro";
-					@include transition(0.3s);
-	
-				}
-			}
 			ul li.menu-item-has-children::after {
-				right: 14px;
+				right: 0;
 			}
 		}
 	}
@@ -390,6 +375,11 @@
 	display: flex;
 	align-items: center;
 }
+
+.header-btn button {
+	background-color: #597535;
+}
+
 .header-top-icon {
 	@media #{$md} {
 		padding-left: 80px;
@@ -398,7 +388,7 @@
 .header-top-icon {
 	i {
 		margin-right: 10px;
-		color: $theme-color;
+		color: #597535;
 	}
 	a {
 		position: relative;
@@ -412,7 +402,7 @@
 		font-size: 14px;
 		font-weight: 600;
 		&:hover {
-			color: $theme-color;
+			color: #597535;
 		}
 	}
 	span {
@@ -435,7 +425,7 @@
 			font-size: 14px;
 			font-weight: 600;
 			&:hover {
-				color: $theme-color;
+				color: #597535;
 			}
 		}
 	}
@@ -446,7 +436,7 @@
 		font-size: 15px;
 		margin-left: 20px;
 		&:hover {
-			color: $theme-color-2;
+			color: #597535;
 		}
 	}
 }
@@ -455,7 +445,7 @@
 		margin-left: 10px;
 		color: #a6b9cc;
 		&:hover {
-			color: $theme-color-2;
+			color: #597535;
 		}
 	}
 }
@@ -743,7 +733,7 @@
 	transition: all 0.5s ease-out 0s;
 }
 .side-info {
-	background: #f5f5f5;
+	background: white;
 	height: 100%;
 	position: fixed;
 	z-index: 1006;
@@ -1023,11 +1013,11 @@ div.mean-container {
     line-height: 50px;
     border: 0;
     font-size: 20px;
-    color: $heading-color;
+    color: #597535;
 }
 
 .close-mobile-menu {
-	color: $heading-color;
+	color: #597535;
 	position: relative;
 	z-index: 2;
 	font-size: 16px;

@@ -79,7 +79,7 @@ const HeaderGuest = ({ setShowHeaderUser }) => {
                     <a>
                       <img
                         width="80px"
-                        src="assets/img/logo/tiktok.jpg"
+                        src="https://nauphache.com/wp-content/uploads/2022/05/nau-pha-che-09-1024x721.png"
                         alt="img"
                       />
                     </a>
