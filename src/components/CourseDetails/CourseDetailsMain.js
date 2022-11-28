@@ -27,6 +27,7 @@ const CourseDetailsMain = () => {
   };
 
   function checkIsStudent() {
+    console.log(listLessons);
     if (listLessons[1].url === "") {
       return false;
     }
@@ -350,7 +351,7 @@ const CourseDetailsMain = () => {
                 </div>
               </div>
             </div>
-            {!checkIsStudent ? (
+            {checkIsStudent ? (
               <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
                 <CourseDetailsSidebar dataCourses={dataCourses} />
               </div>
