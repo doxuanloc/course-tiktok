@@ -23,8 +23,8 @@ const CourseBar = () => {
                 <div className="course-sidebar-wrapper">
                   <div className="curse-tab-left-wrap">
                     <div className="course-results">
-                      Tìm Thấy <span className="course-result-showing">15</span>{" "}
-                      Trong Số <span className="course-result-number">60</span>{" "}
+                      Tìm Thấy <span className="course-result-showing">03</span>{" "}
+                      Trong Số <span className="course-result-number">03</span>{" "}
                       Kết Quả
                     </div>
                   </div>

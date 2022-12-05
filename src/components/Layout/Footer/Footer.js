@@ -29,14 +29,14 @@ const Footer = () => {
                     <a href="#">
                       <i className="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#">
-                      <i className="fab fa-twitter"></i>
+                    <a href="https://www.tiktok.com/@nauphache" target="blank">
+                      <i className="fab fa-tiktok"></i>
                     </a>
                     <a href="#">
                       <i className="fab fa-instagram"></i>
                     </a>
-                    <a href="#">
-                      <i className="fab fa-linkedin-in"></i>
+                    <a href="https://nauphache.com/" target="blank">
+                      <i className="fa fa-globe"></i>
                     </a>
                   </div>
                 </div>
@@ -61,7 +61,7 @@ const Footer = () => {
 
               <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div className="footer-widget f-w4 mb-40">
-                  <h3>Cộng đồng TikTok</h3>
+                  <h3>Cộng đồng Pha Chế</h3>
                   <ul>
                     <li>
                       <Link href="/about">
@@ -75,18 +75,16 @@ const Footer = () => {
                     </li>
                     <li>
                       <Link href="/contact">
-                        <a>Help and Support</a>
+                        <a>Hỗ Trợ</a>
                       </Link>
                     </li>
                     <li>
-                      <Link href="/contact">
+                      <a
+                        href="https://www.tiktok.com/@nauphache"
+                        target="blank"
+                      >
                         <a>Cộng Đồng</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/faq-page">
-                        <a>Tài Liệu</a>
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -100,7 +98,7 @@ const Footer = () => {
                   <div className="copyright-text border-line">
                     <p>
                       © Copyrighted and Designed by{" "}
-                      <a href="https://themeforest.net/user/bdevs">
+                      <a href="https://portfolio-doxuanloc.vercel.app/">
                         <span>XL</span>
                       </a>
                     </p>
@@ -197,7 +195,7 @@ const Footer = () => {
                     <div className="copyright-svg-content">
                       <p>Liên Hệ Chúng Tôi - 24/7</p>
                       <h5>
-                        <a href="tel:(987)547587587">(023) 32239239</a>
+                        <a href="tel:0348414895"> 0348414895</a>
                       </h5>
                     </div>
                   </div>

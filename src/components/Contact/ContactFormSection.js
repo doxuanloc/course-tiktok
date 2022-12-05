@@ -31,7 +31,7 @@ const ContactFormSection = () => {
           </div>
           <div className="col-xl-12">
             <div className="contact-from-input mb-20">
-              <textarea placeholder="Message" name="message"></textarea>
+              <textarea placeholder="Tin Nhắn" name="message"></textarea>
             </div>
           </div>
           <div className="colxl-2 ">

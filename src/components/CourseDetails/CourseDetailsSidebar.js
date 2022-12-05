@@ -17,8 +17,6 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
 
   const router = useRouter();
 
-  console.log(course);
-
   return (
     <React.Fragment>
       <Modal
@@ -85,7 +83,7 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
                   <span>Thời Lượng</span>
                 </div>
                 <div className="video-corse-info">
-                  <span>12 Tiếng</span>
+                  <span>~2 phút/bài</span>
                 </div>
               </li>
               <li>
@@ -94,9 +92,7 @@ const CourseDetailsSidebar = ({ dataCourses }) => {
                   <span>Danh Mục</span>
                 </div>
                 <div className="video-corse-info">
-                  {course?.tags?.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
+                  <span>{course?.catalog}</span>
                 </div>
               </li>
               <li>

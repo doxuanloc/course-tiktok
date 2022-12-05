@@ -15,8 +15,6 @@ const HeaderGuest = ({ setShowHeaderUser }) => {
   const [signInOpen, setSignInOpen] = useState(false);
   const [signupOpen, setSingUpOpen] = useState(false);
 
-  const [countOrder, setCountOrder] = useState(1);
-
   const router = useRouter();
   const [path, setPath] = useState("");
   useEffect(() => {
@@ -30,30 +28,27 @@ const HeaderGuest = ({ setShowHeaderUser }) => {
             <div className="row align-items-center">
               <div className="col-xl-8 col-lg-8">
                 <div className="header-top-icon">
-                  <a href="tel:(555)674890556">
-                    <i className="fas fa-phone"></i>0329232323
+                  <a href="tel:0348414895">
+                    <i className="fas fa-phone"></i>0348414895
                   </a>
-                  <a href="mailto:info@example.com">
-                    <i className="fal fa-envelope"></i>info@example.com
+                  <a href="https://nauphache.com" target="blank">
+                    <i className="fal fa-info"></i>nauphache.com
                   </a>
                   <i className="fal fa-map-marker-alt"></i>
-                  <span>Ho Chi Minh</span>
+                  <span>06 Lê Thánh Tông, Hoàn Kiếm, Hà Nội</span>
                 </div>
               </div>
               <div className="col-xl-4 col-lg-4">
                 <div className="header-top-login d-flex f-right">
                   <div className="header-social">
-                    <a href="#">
-                      <i className="fab fa-facebook-f"></i>
+                    <a href="https://www.tiktok.com/@nauphache" target="blank">
+                      <i className="fab fa-tiktok"></i>
                     </a>
                     <a href="#">
-                      <i className="fab fa-twitter"></i>
+                      <i className="fab fa-instagram"></i>
                     </a>
                     <a href="#">
-                      <i className="fab fa-vimeo-v"></i>
-                    </a>
-                    <a href="#">
-                      <i className="fab fa-linkedin"></i>
+                      <i className="fab fa-facebook"></i>
                     </a>
                   </div>
                 </div>

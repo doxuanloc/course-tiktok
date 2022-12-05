@@ -15,7 +15,6 @@ const HomeMain = () => {
     <main>
       <HeroSectionTwo />
       <AboutSection />
-      <CounterSection />
       <CategorySlider />
     </main>
   );

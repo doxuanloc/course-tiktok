@@ -128,7 +128,7 @@ const CourseDetailsMain = () => {
                   </div>
                   <div className="course-Enroll border-line-meta">
                     <p>Tổng Số Lượng Tham Gia</p>
-                    <span>5,420</span>
+                    <span>{dataCourses?.numberOfStudents}</span>
                   </div>
                   <div className="course-update border-line-meta">
                     <p>Ngày Mở Khóa Học</p>
@@ -138,7 +138,7 @@ const CourseDetailsMain = () => {
                     <p>Danh Mục</p>
                     <span>
                       <Link href="/course">
-                        <a>{dataCourses?.tags}</a>
+                        <a>{dataCourses?.catalog}</a>
                       </Link>
                     </span>
                   </div>
@@ -189,10 +189,7 @@ const CourseDetailsMain = () => {
                     <h4>Chương Trình Giảng Dạy</h4>
                   </div>
                   <ul>
-                    <li>
-                      {dataCourses?.numberOfLessons} Video Hướng Dẫn •{" "}
-                      {NumToTime(dataCourses?.durationInSeconds)} Tiếng
-                    </li>
+                    <li>{dataCourses?.lessons?.length} Video Hướng Dẫn • </li>
                   </ul>
                   <div className="course-curriculam-accodion mt-30">
                     <div className="accordion" id="accordionExample">
@@ -212,7 +209,7 @@ const CourseDetailsMain = () => {
                               </span>
                               <span className="accordion-tittle-inner">
                                 <span>
-                                  {dataCourses?.numberOfLessons} Bài Học •
+                                  {dataCourses?.lessons?.length} Bài Học •
                                 </span>
                               </span>
                             </span>
@@ -249,8 +246,6 @@ const CourseDetailsMain = () => {
                                       onClose={onCloseModal}
                                       style={{
                                         modal: {
-                                          maxWidth: "unset",
-                                          width: "70%",
                                           padding: "unset",
                                         },
                                         overlay: {
@@ -264,20 +259,25 @@ const CourseDetailsMain = () => {
                                     >
                                       {listLessons?.map((item) => (
                                         <>
-                                          <p key={item.title}>{item.title}</p>
-                                          <ReactPlayer
-                                            url={item?.url}
-                                            width="100%"
-                                            height="calc(100vh - 200px)"
-                                            controls={true}
-                                          />
+                                          {item?.url !== "" && (
+                                            <>
+                                              <p key={item.title}>
+                                                {item.title}
+                                              </p>
+                                              <ReactPlayer
+                                                url={item?.url}
+                                                width="700px"
+                                                height="calc(100vh - 200px)"
+                                                controls={true}
+                                              />
+                                            </>
+                                          )}
                                         </>
                                       ))}
                                     </Modal>
                                   </div>
                                 </div>
                                 <div className="course-curriculum-meta">
-                                  <span>5:30</span>
                                   <span className="time">
                                     {" "}
                                     {item.url === "" && (
@@ -351,7 +351,7 @@ const CourseDetailsMain = () => {
                 </div>
               </div>
             </div>
-            {checkIsStudent ? (
+            {!dataCourses?.isBuy ? (
               <div className="col-xxl-4 col-xl-4 col-lg-8 col-md-8">
                 <CourseDetailsSidebar dataCourses={dataCourses} />
               </div>
@@ -365,11 +365,9 @@ const CourseDetailsMain = () => {
                   }}
                 >
                   <div className="card-header">
-                    <h2 className="pt-30">Tiến Độ Học</h2>
+                    <h2 className="pt-30">Tài Liệu Khóa Học</h2>
                   </div>
-                  <div className="card-body">
-                    <h5 className="card-title">0/2</h5>
-                  </div>
+                  <h4>{dataCourses.document}</h4>
                 </div>
               </div>
             )}

@@ -42,6 +42,7 @@ const HeaderUser = ({ setShowHeaderUser }) => {
           console.log(err);
           if (err.response.data.message === "Unauthorized") {
             localStorage.removeItem("token");
+            router.push("/");
           }
         });
     }
@@ -189,12 +190,12 @@ const HeaderUser = ({ setShowHeaderUser }) => {
                             <ul>
                               <li>
                                 <Link href="/course">
-                                  <a>Edit Video</a>
+                                  <a>Trà Sữa</a>
                                 </Link>
                               </li>
                               <li>
                                 <Link href="/course">
-                                  <a>Vẽ Và Thiết Kế</a>
+                                  <a>Cà Phê</a>
                                 </Link>
                               </li>
                             </ul>

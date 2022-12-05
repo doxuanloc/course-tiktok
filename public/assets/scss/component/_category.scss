@@ -63,8 +63,10 @@
 }
 .categiories-thumb {
 	transition: 0.3s;
-	svg {
+	img {
 		margin-bottom: 30px;
+		width: 100px;
+		height: 100px;
 	}
 }
 .categories-wrapper:hover .categiories-thumb {

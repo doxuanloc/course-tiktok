@@ -35,7 +35,7 @@ const HeroSectionTwo = () => {
           </span>
         </div>
         <h5>
-          Có Hơn <span>21,500+</span> Học Viên Đã Tham Gia Khóa Học
+          Có Hơn <span>21+</span> Học Viên Đã Tham Gia Khóa Học
         </h5>
       </div>
       <div className="container">

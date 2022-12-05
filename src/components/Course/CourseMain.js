@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Pagination from "../Common/Pagination";
 import CourseBar from "../Course/CourseBar";
-import ShopSidebar from "../Shop/ShopSidebar";
 import Link from "next/link";
 import axios from "../../api/axios";
 import * as ReactBootStrap from "react-bootstrap";
@@ -13,6 +12,7 @@ const CourseMain = () => {
   const [dataCourses, setDataCourses] = useState([]);
   const [numPage, setNumPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isActive, setActive] = useState("false");
   const DATA_COURSES_URL = "courses";
 
   const router = useRouter();
@@ -27,7 +27,6 @@ const CourseMain = () => {
           },
         })
         .then((res) => {
-          console.log("check", res);
           setDataCourses(res.data.data);
           setNumPage(res.data.pagination.pageCount);
         });
@@ -37,9 +36,33 @@ const CourseMain = () => {
     }
   }
 
+  async function handleFilter(e) {
+    const token = localStorage.getItem("token");
+    var config = {
+      method: "get",
+      url: `https://courses-booking.vercel.app/courses?page=0&pageSize=25&sortType=desc&sortField=updatedAt&catalog=${e}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log("chevck", response.data.data);
+        setDataCourses(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     getDataCourse();
   }, []);
+
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
 
   function NumToTime(num) {
     var hours = Math.floor(num / 60);
@@ -64,7 +87,64 @@ const CourseMain = () => {
           <div className="container">
             <div className="row mb-10">
               <div className="col-xl-3 col-lg-4 col-md-12">
-                <ShopSidebar />
+                <div>
+                  <div className="course-sidebar-widget mb-20">
+                    <div
+                      className={`course-sidebar-info ${
+                        isActive ? "danger" : "content-hidden"
+                      }`}
+                    >
+                      <h3 className="drop-btn" onClick={handleToggle}>
+                        Danh Mục
+                      </h3>
+                      <ul>
+                        <li>
+                          <div className="course-sidebar-list pb-5">
+                            <input
+                              className="edu-check-box"
+                              type="checkbox"
+                              id="e-bus"
+                              onClick={() => getDataCourse()}
+                            />
+                            <label className="edu-check-label" htmlFor="e-bus">
+                              Tất Cả
+                            </label>
+                          </div>
+                          <div className="course-sidebar-list">
+                            <input
+                              className="edu-check-box"
+                              type="checkbox"
+                              id="e-bus"
+                              value="Cà Phê"
+                              onChange={(e) =>
+                                handleFilter(e.target.defaultValue)
+                              }
+                            />
+                            <label className="edu-check-label" htmlFor="e-bus">
+                              Cà Phê
+                            </label>
+                          </div>
+                        </li>
+                        <li>
+                          <div className="course-sidebar-list">
+                            <input
+                              className="edu-check-box"
+                              type="checkbox"
+                              id="e-dev"
+                              value="Trà Sữa"
+                              onChange={(e) =>
+                                handleFilter(e.target.defaultValue)
+                              }
+                            />
+                            <label className="edu-check-label" htmlFor="e-dev">
+                              Trà Sữa
+                            </label>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="col-xl-9 col-lg-8 col-md-12">
                 <div className="row">
@@ -87,14 +167,9 @@ const CourseMain = () => {
                             <div className="cart-info-body">
                               <Link href="/course">
                                 <>
-                                  {item.tags.map((tag) => (
-                                    <a
-                                      className="category-color category-color-3 mr-10"
-                                      key={tag}
-                                    >
-                                      {tag}
-                                    </a>
-                                  ))}
+                                  <a className="category-color category-color-3 mr-10">
+                                    {item.catalog}
+                                  </a>
                                 </>
                               </Link>
                               <Link href="/course-details">
@@ -150,9 +225,7 @@ const CourseMain = () => {
                         <div className="course-2-footer">
                           <div className="coursee-clock">
                             <i className="flaticon-clock"></i>
-                            <span>
-                              {NumToTime(item.durationInSeconds)} Tiếng
-                            </span>
+                            <span>Phút/Bài Học</span>
                           </div>
                           <div className="course-creadit">
                             <i className="flaticon-menu-1"></i>
@@ -173,7 +246,9 @@ const CourseMain = () => {
           </div>
         </section>
       ) : (
-        <ReactBootStrap.Spinner animation="border" />
+        <div className="text-center">
+          <ReactBootStrap.Spinner animation="border" />
+        </div>
       )}
     </main>
   );

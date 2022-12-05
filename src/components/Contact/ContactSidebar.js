@@ -30,10 +30,7 @@ const ContactSidebar = () => {
             <div className="support-info-phone">
               <span>Số Điện Thoại</span>
               <p>
-                Di Động :<a href="tel:(+88)872-670-780"> (+88) 872-670-780</a>
-              </p>
-              <p>
-                Hotline :<a href="tel:(+88)422-655-793"> (+88) 422-655-793</a>
+                Di Động :<a href="tel:0348414895">0348414895</a>
               </p>
             </div>
           </div>
@@ -69,8 +66,7 @@ const ContactSidebar = () => {
             </div>
             <div className="support-info-email">
               <span>Email</span>
-              <a href="mailto:Info@example.com">Info@example.com</a>
-              <a href="mailto:Contact@example.com">Contact@example.com</a>
+              <a href="mailto:nauphache@gmail.com">nauphache@gmail.com</a>
             </div>
           </div>
           <div className="support-item">
@@ -117,7 +113,7 @@ const ContactSidebar = () => {
             </div>
             <div className="support-info-location">
               <span>Địa Điểm</span>
-              <a href="#">Ho Chi Minh</a>
+              <a href="#">Ha Noi</a>
             </div>
           </div>
         </div>

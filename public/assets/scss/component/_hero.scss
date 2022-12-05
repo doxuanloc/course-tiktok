@@ -296,7 +296,7 @@
 		margin-left: 10%;
 	}
 	h2 {
-		font-size: 50px;
+		font-size: 70px;
 		color: #597535;
 		@media #{$xxl,$xl} {
 			font-size: 45px;
@@ -346,7 +346,8 @@
 .slider-course-content {
 	ul {
 		li {
-			display: inline-block;
+			display: flex;
+			justify-content: center;
 			margin: 0 20px;
 			margin-bottom: 10px;
 			@media #{$xl} {
@@ -357,6 +358,7 @@
 				color: #b9c4d6;
 				font-size: 20px;
 				transform: translateY(2px);
+				margin-left: 0px;
 			}
 			span {
 				font-size: 16px;

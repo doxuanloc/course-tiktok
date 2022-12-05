@@ -88,7 +88,7 @@ const CategorySlider = () => {
                               <div className="categories-wrapper text-center mb-30">
                                 <div className="categiories-thumb">
                                   <svg
-                                    id="Camera"
+                                    id="a"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="128.228"
                                     height="128.228"
@@ -204,7 +204,7 @@ const CategorySlider = () => {
                                   </svg>
                                 </div>
                                 <div className="categories-content">
-                                  <h4>Photography</h4>
+                                  <h4>Trà Sữa</h4>
                                   <p>22 Bài Học</p>
                                 </div>
                               </div>
@@ -386,7 +386,7 @@ const CategorySlider = () => {
                                   </svg>
                                 </div>
                                 <div className="categories-content">
-                                  <h4>Marketing</h4>
+                                  <h4>Cà Phê</h4>
                                   <p>14 Bài Học</p>
                                 </div>
                               </div>
