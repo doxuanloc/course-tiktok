@@ -5,8 +5,7 @@ import Header from "../components/Layout/Header";
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "../components/Common/Breadcrumb";
 import Pagination from "../components/Common/Pagination";
-import CourseBar from "../components/Course/CourseBar";
-import ShopSidebar from "../components/Shop/ShopSidebar";
+
 import Link from "next/link";
 import axios from "../api/axios";
 import * as ReactBootStrap from "react-bootstrap";
@@ -40,6 +39,8 @@ export default function MyCourse() {
       console.log(err);
     }
   }
+
+  console.log(dataMyCourses);
 
   async function getDetailMyCourse(id) {
     router.push("/course-details");
@@ -95,7 +96,68 @@ export default function MyCourse() {
                     >
                       Nhập CODE Khóa Học Đã Mua !
                     </button>
-                    <ShopSidebar />
+                    <div className="row mb-10">
+                      <div className="col-xl-12 col-lg-4 col-md-12">
+                        <div>
+                          <div className="course-sidebar-widget mb-20">
+                            <div
+                              className={`course-sidebar-info ${
+                                loading ? "danger" : "content-hidden"
+                              }`}
+                            >
+                              <h3 className="drop-btn">Danh Mục</h3>
+                              <ul>
+                                <li>
+                                  <div className="course-sidebar-list pb-5">
+                                    <input
+                                      className="edu-check-box"
+                                      type="checkbox"
+                                      id="e-bus"
+                                    />
+                                    <label
+                                      className="edu-check-label"
+                                      htmlFor="e-bus"
+                                    >
+                                      Tất Cả
+                                    </label>
+                                  </div>
+                                  <div className="course-sidebar-list">
+                                    <input
+                                      className="edu-check-box"
+                                      type="checkbox"
+                                      id="e-bus"
+                                      value="Cà Phê"
+                                    />
+                                    <label
+                                      className="edu-check-label"
+                                      htmlFor="e-bus"
+                                    >
+                                      Cà Phê
+                                    </label>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div className="course-sidebar-list">
+                                    <input
+                                      className="edu-check-box"
+                                      type="checkbox"
+                                      id="e-dev"
+                                      value="Trà Sữa"
+                                    />
+                                    <label
+                                      className="edu-check-label"
+                                      htmlFor="e-dev"
+                                    >
+                                      Trà Sữa
+                                    </label>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div className="col-xl-9 col-lg-8 col-md-12">
                     <div className="row">
@@ -134,9 +196,7 @@ export default function MyCourse() {
                             <div className="course-2-footer">
                               <div className="coursee-clock">
                                 <i className="flaticon-clock"></i>
-                                <span>
-                                  {NumToTime(item.durationInSeconds)} Tiếng
-                                </span>
+                                <span>Phút/Bài Học</span>
                               </div>
                               <div className="course-creadit">
                                 <i className="flaticon-menu-1"></i>

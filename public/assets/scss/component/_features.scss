@@ -149,6 +149,10 @@
 	border-radius: 10px;
 	height: 500px;
 	width: 1000px;
+	@media  #{$sm,$xs} {
+		height: 500px;
+		width: 300px;
+	}
 }
 .reatures-video-thumb {
 	position: relative;
