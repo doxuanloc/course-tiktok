@@ -180,13 +180,13 @@ const MobileMenu = ({
           <div className="offset-widget offset_menu-top mb-20">
             <div className="header-menu-top-icon mb-20">
               <a href="#">
-                <i className="fas fa-phone"></i>(092) 674 890 556
+                <i className="fas fa-phone"></i>(034) 841 4895
               </a>
-              <a href="#">
-                <i className="fal fa-envelope"></i>info@example.com
+              <a href="www.tiktok.com/@nauphache">
+                <i className="fab fa-tiktok"> @nauphache</i>
               </a>
               <i className="fal fa-map-marker-alt"></i>
-              <span>Ho Chi Minh</span>
+              <span>6 P. Lê Thánh Tông, Phan Chu Trinh, Hoàn Kiếm, Hà Nội</span>
             </div>
           </div>
           {showBtnSignUp && (

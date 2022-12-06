@@ -351,7 +351,7 @@ const HeaderUser = ({ setShowHeaderUser }) => {
         setMenuOpen={setMenuOpen}
         usernameProfile={usernameProfile}
         avtUserProfile={avtUserProfile}
-        onClick={logout}
+        logout={logout}
       />
       <div
         onClick={() => setMenuOpen(false)}
